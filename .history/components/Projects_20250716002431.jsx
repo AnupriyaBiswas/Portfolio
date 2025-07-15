@@ -204,7 +204,7 @@ const Projects = () => {
       <section
         ref={sectionRef}
         id="projects"
-        className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 bg-black text-white relative overflow-visible"
+        className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 bg-black text-white relative overflow-hidden"
       >
         {/* Animated Stars Background */}
         <div className="absolute inset-0 pointer-events-none">
@@ -225,8 +225,8 @@ const Projects = () => {
           {/* Title */}
           <h2
             className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-20 text-center transition-all duration-1000 ease-out ${isVisible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-8'
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-8'
               }`}
             style={{
               transitionDelay: isVisible ? '0.2s' : '0s'
@@ -242,8 +242,8 @@ const Projects = () => {
               <div
                 key={index}
                 className={`group relative overflow-visible transition-all duration-1000 ease-out ${isVisible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-8'
                   }`}
                 style={{
                   transitionDelay: isVisible ? `${0.4 + index * 0.2}s` : '0s',
@@ -262,17 +262,25 @@ const Projects = () => {
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-orange-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
 
                   {/* Project Number or Icon */}
-                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 border-gray-900">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                  
+                  {index === 2 ? (
+                    <img
+                      src="assets/fishing.png"
+                      alt="Fishing Icon"
+                      className="absolute -top-6 -right-6 w-20 h-20 object-contain pointer-events-none z-50"
+                      style={{ overflow: 'visible' }}
+                    />
+                  ) : (
+                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 border-gray-900">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                  )}
 
 
                   {/* Status Badge */}
                   <div className="absolute top-6 left-6 flex items-center space-x-2">
                     <div className={`w-3 h-3 rounded-full ${project.status === 'Live' ? 'bg-green-500' :
-                      project.status === 'Completed' ? 'bg-blue-500' :
-                        'bg-yellow-500'
+                        project.status === 'Completed' ? 'bg-blue-500' :
+                          'bg-yellow-500'
                       } animate-pulse`}></div>
                     <span className="text-sm font-medium text-gray-300">{project.status}</span>
                   </div>

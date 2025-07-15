@@ -67,7 +67,7 @@ const Projects = () => {
       const duration = Math.random() * 15 + 20;
       const delay = Math.random() * duration;
       const left = Math.random() * 100;
-
+      
       stars.push(
         <div
           key={i}
@@ -93,7 +93,7 @@ const Projects = () => {
       const duration = Math.random() * 20 + 30;
       const delay = Math.random() * duration;
       const left = Math.random() * 100;
-
+      
       particles.push(
         <div
           key={i}
@@ -200,11 +200,11 @@ const Projects = () => {
           }
         }
       `}</style>
-
+      
       <section
         ref={sectionRef}
         id="projects"
-        className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 bg-black text-white relative overflow-visible"
+        className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 bg-black text-white relative overflow-hidden"
       >
         {/* Animated Stars Background */}
         <div className="absolute inset-0 pointer-events-none">
@@ -221,13 +221,14 @@ const Projects = () => {
 
         {/* Main Content */}
         <div className="relative z-10 max-w-7xl w-full">
-
+          
           {/* Title */}
-          <h2
-            className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-20 text-center transition-all duration-1000 ease-out ${isVisible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-8'
-              }`}
+          <h2 
+            className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-20 text-center transition-all duration-1000 ease-out ${
+              isVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-8'
+            }`}
             style={{
               transitionDelay: isVisible ? '0.2s' : '0s'
             }}
@@ -237,14 +238,15 @@ const Projects = () => {
           </h2>
 
           {/* Projects Grid */}
-          <div className="grid gap-8 md:gap-12 lg:grid-cols-2 xl:grid-cols-3 overflow-visible">
+          <div className="grid gap-8 md:gap-12 lg:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className={`group relative overflow-visible transition-all duration-1000 ease-out ${isVisible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'
-                  }`}
+                className={`group relative transition-all duration-1000 ease-out ${
+                  isVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-8'
+                }`}
                 style={{
                   transitionDelay: isVisible ? `${0.4 + index * 0.2}s` : '0s',
                   animation: isVisible ? `projectSlideIn 1s ease-out ${0.4 + index * 0.2}s both` : 'none'
@@ -254,42 +256,41 @@ const Projects = () => {
               >
                 {/* Project Card */}
                 <div className="relative h-full bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden group-hover:border-orange-500/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20">
-
+                  
                   {/* Holographic Overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
+                  
                   {/* Animated Border Effect */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-orange-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-
-                  {/* Project Number or Icon */}
+                  
+                  {/* Project Number */}
                   <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 border-gray-900">
                     {String(index + 1).padStart(2, '0')}
                   </div>
                   
-
-
                   {/* Status Badge */}
                   <div className="absolute top-6 left-6 flex items-center space-x-2">
-                    <div className={`w-3 h-3 rounded-full ${project.status === 'Live' ? 'bg-green-500' :
-                      project.status === 'Completed' ? 'bg-blue-500' :
-                        'bg-yellow-500'
-                      } animate-pulse`}></div>
+                    <div className={`w-3 h-3 rounded-full ${
+                      project.status === 'Live' ? 'bg-green-500' : 
+                      project.status === 'Completed' ? 'bg-blue-500' : 
+                      'bg-yellow-500'
+                    } animate-pulse`}></div>
                     <span className="text-sm font-medium text-gray-300">{project.status}</span>
                   </div>
-
+                  
                   {/* Main Content */}
                   <div className="relative z-10 p-8 pt-16 h-full flex flex-col">
-
+                    
                     {/* Project Title */}
                     <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white group-hover:text-orange-100 transition-colors duration-300 leading-tight">
                       {project.title}
                     </h3>
-
+                    
                     {/* Description */}
                     <p className="text-gray-300 mb-6 flex-grow leading-relaxed">
                       {project.description}
                     </p>
-
+                    
                     {/* Tech Stack */}
                     <div className="mb-8">
                       <div className="flex flex-wrap gap-2">
@@ -307,7 +308,7 @@ const Projects = () => {
                         ))}
                       </div>
                     </div>
-
+                    
                     {/* Action Button */}
                     <div className="mt-auto">
                       <a
@@ -317,10 +318,10 @@ const Projects = () => {
                         className="inline-flex items-center w-full justify-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-full hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30 group/button"
                       >
                         <span>Explore Project</span>
-                        <svg
-                          className="w-5 h-5 ml-2 group-hover/button:translate-x-1 transition-transform duration-300"
-                          fill="none"
-                          stroke="currentColor"
+                        <svg 
+                          className="w-5 h-5 ml-2 group-hover/button:translate-x-1 transition-transform duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
                           viewBox="0 0 24 24"
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -328,28 +329,28 @@ const Projects = () => {
                       </a>
                     </div>
                   </div>
-
+                  
                   {/* Decorative Corner Elements */}
                   <div className="absolute bottom-4 right-4 w-12 h-12 border-2 border-orange-500/20 rounded-full flex items-center justify-center group-hover:border-orange-500/40 transition-colors duration-300">
                     <div className="w-6 h-6 bg-gradient-to-br from-orange-500/30 to-orange-600/30 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
                   </div>
-
+                  
                   {/* Hologram Lines */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" style={{ animation: 'hologramFlicker 2s ease-in-out infinite' }}></div>
-                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" style={{ animation: 'hologramFlicker 2s ease-in-out infinite', animationDelay: '1s' }}></div>
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" style={{animation: 'hologramFlicker 2s ease-in-out infinite'}}></div>
+                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" style={{animation: 'hologramFlicker 2s ease-in-out infinite', animationDelay: '1s'}}></div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-
+          
           {/* Bottom Navigation */}
           <div className="mt-20 flex justify-center items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-              <div className="w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="w-1 h-1 bg-white rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
             </div>
             <span className="text-gray-400 text-sm">Scroll to explore more sections</span>
           </div>

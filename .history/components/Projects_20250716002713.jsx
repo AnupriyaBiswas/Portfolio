@@ -265,7 +265,7 @@ const Projects = () => {
                   <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg border-4 border-gray-900">
                     {String(index + 1).padStart(2, '0')}
                   </div>
-                  
+                  }
 
 
                   {/* Status Badge */}

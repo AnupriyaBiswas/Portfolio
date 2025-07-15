@@ -191,7 +191,7 @@ const About = () => {
                 <img
                   src="/assets/about.jpg"
                   alt="About me"
-                  className="w-80 h-80 lg:w-100 lg:h-100 object-cover rounded-lg shadow-2xl"
+                  className="w-80 h-80 lg:w-150 lg:h-150 object-cover rounded-lg shadow-2xl"
                 />
               </div>
             </div>
