@@ -35,7 +35,7 @@ const projects = [
   {
     title: "Parkinson Gait Classifier",
     description:
-      "Classifies Parkinson's gait from normal gait using multimodal EMG + IMU fusion using CNN + RNN.",
+      "Classifies Parkinson’s gait from normal gait using multimodal EMG + IMU fusion using CNN + RNN.",
     tech: ["PyTorch", "CNN", "RNN", "Fusion"],
     link: "#",
     status: "In Progress",
@@ -68,11 +68,18 @@ const domains = ["All", "WebDev", "AI/ML", "Desktop"];
 
 const Projects = () => {
   const [selectedDomain, setSelectedDomain] = useState("All");
+  const [visibleCards, setVisibleCards] = useState([]);
+  const cardRefs = useRef([]);
 
-  const filteredProjects =
-    selectedDomain === "All"
-      ? projects
-      : projects.filter((proj) => proj.domain.trim().toLowerCase() === selectedDomain.trim().toLowerCase());
+  const filteredProjects = projects.filter((proj) =>
+  selectedDomain === "All"
+    ? true
+    : proj.domain.trim().toLowerCase() === selectedDomain.trim().toLowerCase()
+);
+
+
+    return () => observer.disconnect();
+  }, [filteredProjects]);
 
   return (
     <section
@@ -83,14 +90,14 @@ const Projects = () => {
       <img
         src="/assets/fishing.png"
         alt="Fishing Astronaut"
-        className="absolute top-15 right-24 w-[85px] sm:w-[110px] md:w-[135px] lg:w-[160px] z-20"
+        className="absolute top-12 right-24 w-[85px] sm:w-[110px] md:w-[135px] lg:w-[160px] z-20"
         style={{ transform: "translate(50%, -20%)" }}
       />
 
       {/* Heading */}
-      <h2 className="text-4xl md:text-7xl lg:text-8xl font-bold mb-10 text-left">
-        <span className="text-orange-500">PROJECT</span>
-        <span className="text-white ml-4">SHOWCASE</span>
+      <h2 className="text-4xl md:text-7xl lg:text-8xl font-bold mb-10 text-left inline-block gap-4">
+        <span className="text-orange-500 block">PROJECT</span>
+        <span className="text-white block">SHOWCASE</span>
       </h2>
 
       {/* Filter Controls (moved here) */}
@@ -109,40 +116,18 @@ const Projects = () => {
         </select>
 
         {/* Desktop Tabs */}
-        <div className="hidden md:flex flex-wrap gap-4 animate-slide-in">
+        <div className="hidden md:flex flex-wrap gap-3 animate-slide-in">
           {domains.map((domain) => (
             <button
               key={domain}
               onClick={() => setSelectedDomain(domain)}
-              className={`text-base font-bold px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 ${
+              className={`text-base font-semibold px-4 py-2 rounded-full transition-all duration-300 ${
                 selectedDomain === domain
-                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30 scale-105"
-                  : "text-gray-400 hover:text-white border-2 border-gray-700 hover:border-orange-500/50 hover:shadow-md hover:shadow-orange-500/10 bg-gray-900/50"
+                  ? "bg-orange-500 text-white shadow-md scale-105"
+                  : "text-gray-400 hover:text-white border border-gray-700"
               }`}
             >
-              <span className="flex items-center gap-2">
-                {domain === "All" && (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zM2 15a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z" />
-                  </svg>
-                )}
-                {domain === "WebDev" && (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                )}
-                {domain === "AI/ML" && (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                )}
-                {domain === "Desktop" && (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
-                  </svg>
-                )}
-                {domain}
-              </span>
+              {domain}
             </button>
           ))}
         </div>
@@ -153,7 +138,12 @@ const Projects = () => {
         {filteredProjects.map((project, index) => (
           <div
             key={index}
-            className="transition-all duration-700 ease-out transform opacity-100 translate-y-0 bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20 p-8 md:p-10"
+            ref={(el) => (cardRefs.current[index] = el)}
+            className={`transition-all duration-700 ease-out transform opacity-0 translate-y-8 ${
+              visibleCards.includes(cardRefs.current[index])
+                ? "opacity-100 translate-y-0"
+                : ""
+            } bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20 p-8 md:p-10`}
           >
             <div className="mb-4 text-sm font-medium text-gray-300 flex items-center space-x-2">
               <div

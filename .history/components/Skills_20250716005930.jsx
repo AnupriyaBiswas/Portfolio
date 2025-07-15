@@ -119,7 +119,7 @@ const Skills = () => {
 
         {/* 🪐 Heading */}
         <div className="pt-36 pb-12 text-center z-10 relative">
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-20">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold">
             <span className="text-orange-500">TECH</span>{" "}
             <span className="text-white">SKILLS</span>
           </h2>

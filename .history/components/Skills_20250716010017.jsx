@@ -118,12 +118,14 @@ const Skills = () => {
         `}</style>
 
         {/* 🪐 Heading */}
-        <div className="pt-36 pb-12 text-center z-10 relative">
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-20">
-            <span className="text-orange-500">TECH</span>{" "}
-            <span className="text-white">SKILLS</span>
-          </h2>
-        </div>
+        <h2
+          className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-20 text-left transition-all duration-1000 inline-flex gap-4 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          style={{ transitionDelay: isVisible ? "0.2s" : "0s" }}
+        >
+          <span className="text-orange-500 block">PROJECT</span>
+          <span className="text-white block">SHOWCASE</span>
+        </h2>
 
         {/* 🌠 Orbit System */}
         <div className="relative h-[500px] w-[100vw] max-w-none overflow-hidden mx-auto flex items-center justify-center z-10">

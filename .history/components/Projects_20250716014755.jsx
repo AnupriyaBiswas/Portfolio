@@ -83,7 +83,7 @@ const Projects = () => {
       <img
         src="/assets/fishing.png"
         alt="Fishing Astronaut"
-        className="absolute top-15 right-24 w-[85px] sm:w-[110px] md:w-[135px] lg:w-[160px] z-20"
+        className="absolute top-12 right-24 w-[85px] sm:w-[110px] md:w-[135px] lg:w-[160px] z-20"
         style={{ transform: "translate(50%, -20%)" }}
       />
 
