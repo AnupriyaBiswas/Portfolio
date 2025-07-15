@@ -1,0 +1,20 @@
+// pages/_app.js
+import Head from "next/head";
+import "../styles/globals.css";
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Navbar />
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
+}
+
+export default MyApp;
