@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image"; // ✅ Fix for Next.js <img> warning
 
 const Hero = () => {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    // Generate random stars
     const generateStars = () => {
       const newStars = [];
       for (let i = 0; i < 150; i++) {
@@ -19,7 +19,6 @@ const Hero = () => {
       }
       setStars(newStars);
     };
-
     generateStars();
   }, []);
 
@@ -47,8 +46,8 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Add keyframe animations */}
-      <style>{`
+      {/* Move keyframes to global CSS */}
+      <style global jsx>{`
         @keyframes fall {
           0% {
             transform: translateY(-100vh);
@@ -57,7 +56,6 @@ const Hero = () => {
             transform: translateY(100vh);
           }
         }
-        
         @keyframes floatUp {
           0% {
             transform: translateY(100vh) rotate(0deg);
@@ -65,29 +63,8 @@ const Hero = () => {
           10% {
             transform: translateY(85vh) rotate(1deg);
           }
-          20% {
-            transform: translateY(70vh) rotate(-0.5deg);
-          }
-          30% {
-            transform: translateY(50vh) rotate(1.5deg);
-          }
-          40% {
-            transform: translateY(35vh) rotate(-1deg);
-          }
           50% {
-            transform: translateY(20vh) rotate(0.5deg);
-          }
-          60% {
-            transform: translateY(10vh) rotate(-1.5deg);
-          }
-          70% {
-            transform: translateY(-5vh) rotate(1deg);
-          }
-          80% {
-            transform: translateY(-20vh) rotate(-0.5deg);
-          }
-          90% {
-            transform: translateY(-100vh) rotate(0deg);
+            transform: translateY(20vh) rotate(-0.5deg);
           }
           100% {
             transform: translateY(-100vh) rotate(0deg);
@@ -104,16 +81,19 @@ const Hero = () => {
         </button>
       </div>
 
-      {/* Left Side - Main Content */}
+      {/* Left Side */}
       <div className="flex-1 max-w-3xl z-10">
         <h1 className="text-6xl md:text-8xl font-bold leading-tight mb-8">
           <span className="text-orange-500">AI/ML</span>
           <br />
           <span className="text-white">DEVELOPER</span>
         </h1>
-        
+
+        {/* ✅ Escaped apostrophes */}
         <p className="text-gray-400 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
-          Hello, I&apos;m Anupriya Biswas, a Student of Computer Science Engineering. I have worked as a Front-end Developer. I&apos;m passionate about Deep Learning Solutions to real-world Problems. Welcome to my World!
+          Hello, I&apos;m Anupriya Biswas, a Student of Computer Science Engineering.
+          I have worked as a Front-end Developer. I&apos;m passionate about
+          Deep Learning Solutions to real-world Problems. Welcome to my World!
         </p>
 
         <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-none font-semibold text-lg tracking-wider transition-colors duration-300">
@@ -121,18 +101,20 @@ const Hero = () => {
         </button>
       </div>
 
-      {/* Right Side - Image */}
-      <div className="hidden lg:block flex-1 max-w-md z-10 flex justify-end items-end pr-0 pb-16">
-        <img 
-          src="/assets/with_balloons.png" 
-          alt="With Balloons" 
-          className="max-w-full object-contain"
-          style={{ 
-            height: '50vh',
-            animation: 'floatUp 30s ease-in-out infinite'
+      {/* Right Side Image with Next.js Image */}
+      <div className="hidden lg:flex flex-1 max-w-md z-10 justify-center pb-16 relative">
+        <Image
+          src="/assets/with_balloons.png"
+          alt="With Balloons"
+          width={400}
+          height={400}
+          className="object-contain absolute bottom-0"
+          style={{
+            animation: "floatUp 30s ease-in-out infinite",
           }}
         />
       </div>
+
 
       {/* Decorative Elements */}
       <div className="absolute top-20 right-20 w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>

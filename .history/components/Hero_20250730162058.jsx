@@ -48,7 +48,7 @@ const Hero = () => {
       </div>
 
       {/* Add keyframe animations */}
-      <style>{`
+      <style jsx>{`
         @keyframes fall {
           0% {
             transform: translateY(-100vh);
@@ -113,7 +113,7 @@ const Hero = () => {
         </h1>
         
         <p className="text-gray-400 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
-          Hello, I&apos;m Anupriya Biswas, a Student of Computer Science Engineering. I have worked as a Front-end Developer. I&apos;m passionate about Deep Learning Solutions to real-world Problems. Welcome to my World!
+          Hello, I'm Anupriya Biswas, a Student of Computer Science Engineering. I have worked as a Front-end Developer. I'm passionate about Deep Learning Solutions to real-world Problems. Welcome to my World!
         </p>
 
         <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-none font-semibold text-lg tracking-wider transition-colors duration-300">
@@ -133,6 +133,7 @@ const Hero = () => {
           }}
         />
       </div>
+
 
       {/* Decorative Elements */}
       <div className="absolute top-20 right-20 w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
