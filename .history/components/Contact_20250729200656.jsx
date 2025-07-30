@@ -11,7 +11,7 @@ const Contact = () => {
         newStars.push({
           id: i,
           x: Math.random() * 100,
-          y: Math.random() * 100,
+          y: Math.random() * 100, // Added y coordinate for fall animation, though not explicitly used for initial position it's good practice
           size: Math.random() * 3 + 1,
           opacity: Math.random() * 0.8 + 0.2,
           animationDuration: 25 + Math.random() * 20,
@@ -37,6 +37,7 @@ const Contact = () => {
             className="absolute rounded-full bg-white"
             style={{
               left: `${star.x}%`,
+              // top is used by the fall animation, no need to set initial top explicitly here for starfall effect
               width: `${star.size}px`,
               height: `${star.size}px`,
               opacity: star.opacity,
@@ -75,15 +76,7 @@ const Contact = () => {
         }
       `}</style>
 
-      {/* Contact Page Background Image (Right Side) */}
-      <img
-        src="assets/contact.png" // Path to your contact image
-        alt="Contact Page Background Graphic"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full object-contain opacity-70 z-5" // Adjusted z-index to 5
-        style={{ maxWidth: '40%' }} // Limit width to 40% of parent for better visual balance
-      />
-
-      {/* Main Contact Content */}
+      {/* Main Contact Content - This div will grow to push the footer down */}
       <div className="flex flex-col justify-center items-center flex-grow px-4 md:px-20 py-20 z-10 text-center">
         <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4">
           <span className="text-orange-500">GET IN</span>{" "}
@@ -142,6 +135,13 @@ const Contact = () => {
           </a>
         </div>
       </div>
+
+      {/* Footer Image */}
+      <img
+        src="assets/footer.png" // Path to your footer image
+        alt="Space-themed Footer"
+        className="absolute bottom-0 left-0 w-full h-auto object-cover object-bottom z-10"
+      />
     </section>
   );
 };

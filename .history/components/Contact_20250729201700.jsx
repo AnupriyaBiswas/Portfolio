@@ -77,7 +77,7 @@ const Contact = () => {
 
       {/* Contact Page Background Image (Right Side) */}
       <img
-        src="assets/contact.png" // Path to your contact image
+        src="assets/contact.jpg" // Path to your contact image
         alt="Contact Page Background Graphic"
         className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full object-contain opacity-70 z-5" // Adjusted z-index to 5
         style={{ maxWidth: '40%' }} // Limit width to 40% of parent for better visual balance

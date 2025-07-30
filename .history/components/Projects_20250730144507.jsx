@@ -413,7 +413,7 @@ const ProjectShowcase = () => {
             {/* All Categories button for mobile */}
             <button
               onClick={() => setSelectedCategory("All")}
-              className={`relative px-6 py-2 text-base font-semibold transition-all duration-300
+              className={`relative px-6 py-0 text-base font-semibold transition-all duration-300
                           ${selectedCategory === "All"
                   ? "text-orange-500 border-b-2 border-orange-500"
                   : "text-gray-400 hover:text-orange-300"

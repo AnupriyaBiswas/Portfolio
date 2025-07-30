@@ -377,13 +377,13 @@ const ProjectShowcase = () => {
         </div>
 
         {/* Top Center Image (Mobile Only) */}
-        <div className="relative flex justify-center w-full mt-2 mb-0 md:hidden z-10">
+        <div className="relative flex justify-center w-full mt-4 mb-4 md:hidden z-10">
           <Image
             src="/assets/fishing.png"
             alt="Decorative fishing illustration"
-            width={60} // Made width significantly smaller
-            height={82} // Adjusted height to maintain aspect ratio (original 222.3 / 162.5 * 60 = ~82.09)
-            className="w-auto h-auto" // Tailwind classes for auto sizing to respect Image component's width/height
+            width={60}
+            height={82}
+            className="w-auto h-auto"
           />
         </div>
 
@@ -418,22 +418,22 @@ const ProjectShowcase = () => {
                   ? "text-orange-500 border-b-2 border-orange-500"
                   : "text-gray-400 hover:text-orange-300"
                 }
-                          bg-transparent flex items-center justify-center gap-2 mb-0 w-48`}
+                          bg-transparent flex items-center justify-center gap-2 mb-2 w-48`} {/* Reduced mb-4 to mb-2 */}
             >
               All Categories
             </button>
 
             {/* Other Categories with Icons for mobile */}
-            <div className="flex justify-center gap-2 w-full max-w-xs mx-auto mb">
+            <div className="flex justify-center gap-6 w-full max-w-xs mx-auto">
               <button
                 onClick={() => setSelectedCategory("WebDev")}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300
+                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300
                             ${selectedCategory === "WebDev"
                     ? "text-orange-500 bg-gray-800"
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Code className="w-8 h-8 mb-0" />
+                <Code className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -444,7 +444,7 @@ const ProjectShowcase = () => {
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Brain className="w-8 h-8 mb-0" />
+                <Brain className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -456,7 +456,7 @@ const ProjectShowcase = () => {
                   }`}
               >
                 {/* Corrected component name here */}
-                <HardDrive className="w-8 h-8 mb-0" />
+                <HardDrive className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
             </div>
@@ -488,7 +488,7 @@ const ProjectShowcase = () => {
         </div>
 
         {/* 3D Carousel */}
-        <div className="relative w-full mt-6 md:mt-10 px-4 z-10">
+        <div className="relative w-full mt-4 md:mt-10 px-4 z-10"> {/* Reduced mt-6 to mt-4 for mobile */}
           <div
             className="relative h-[350px] min-h-[450px] md:h-[500px] max-w-full md:max-w-7xl mx-auto flex items-center justify-between"
             onMouseEnter={() => setIsAutoPlaying(false)}

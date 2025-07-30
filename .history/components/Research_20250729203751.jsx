@@ -108,6 +108,7 @@ const Research = () => {
                 width: `${star.size}px`,
                 height: `${star.size}px`,
                 opacity: star.opacity,
+                // --- FIX APPLIED HERE ---
                 animation: `
                   fall ${star.fallDuration}s linear infinite,
                   twinkle ${star.twinkleDuration}s ease-in-out infinite
@@ -119,6 +120,10 @@ const Research = () => {
         </div>
 
         {/* Add keyframe animations */}
+        {/* NOTE: You are using `style jsx` here, which is for Next.js's styled-jsx.
+            This is fine, but make sure these keyframes are consistently defined
+            and available. The warning specifically targets the `animation` property
+            in the inline style conflicting with `animationDelay`. */}
         <style jsx>{`
           @keyframes fall {
             0% {
@@ -207,7 +212,7 @@ const Research = () => {
           </div>
 
           {/* Right Side: Research Data Streams */}
-          <div className className="w-full md:w-[70%] px-4 flex flex-col justify-between h-full max-h-[calc(100vh-250px)] md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-150px)]">
+          <div className="w-full md:w-[70%] px-4 flex flex-col justify-between h-full max-h-[calc(100vh-250px)] md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-150px)]">
             {researchItems.map((item, index) => (
               <div
                 key={index}
@@ -223,18 +228,18 @@ const Research = () => {
                              // md and larger: apply initial subdued state and hover effects
                              md:opacity-80 md:scale-95
                              md:hover:border-orange-600/80
-                             md:hover:-translate-y-1 // Added slight upward movement
+                             md:hover:-translate-y-0.5
                              md:hover:scale-100
                              md:hover:shadow-orange-500/25
 
                              // Highlighted state (overrides default/hover for md+ screens)
-                             ${currentSpotlightIndex === index ? 'md:opacity-100 md:scale-100 md:translate-y-0' : ''}
+                             ${currentSpotlightIndex === index ? 'md:opacity-100 md:scale-100' : ''}
                              transition-opacity transition-transform duration-500 ease-in-out`}
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
                 {/* Animated highlight stream on hover (only md and larger) */}
-                <div className="absolute inset-y-0 left-0 w-full md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <div className="absolute inset-y-0 left-0 w-1/4 bg-orange-500/15 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/40 to-transparent animate-[highlightStream_1.5s_ease-out_forwards_infinite_alternate]"></div>
                 </div>
 
@@ -281,7 +286,7 @@ const Research = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-4 py-1.5 bg-orange-500 text-white font-semibold rounded-full text-xs
-                                 hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30"
+                                   hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30"
                     >
                       Live Demo
                       <svg

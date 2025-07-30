@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/assets/profile.png" />
+        <link rel="icon" href="/assets/profile.jpg" />
         <meta name="theme-color" content="#000000" />
         <meta name="description" content="Portfolio Website" />
         <link

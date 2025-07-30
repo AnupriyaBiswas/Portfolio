@@ -413,7 +413,7 @@ const ProjectShowcase = () => {
             {/* All Categories button for mobile */}
             <button
               onClick={() => setSelectedCategory("All")}
-              className={`relative px-6 py-2 text-base font-semibold transition-all duration-300
+              className={`relative px-6 py-0 text-base font-semibold transition-all duration-300
                           ${selectedCategory === "All"
                   ? "text-orange-500 border-b-2 border-orange-500"
                   : "text-gray-400 hover:text-orange-300"
@@ -424,7 +424,7 @@ const ProjectShowcase = () => {
             </button>
 
             {/* Other Categories with Icons for mobile */}
-            <div className="flex justify-center gap-2 w-full max-w-xs mx-auto mb">
+            <div className="flex justify-center gap-2 w-full max-w-xs mx-auto">
               <button
                 onClick={() => setSelectedCategory("WebDev")}
                 className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300
@@ -433,7 +433,7 @@ const ProjectShowcase = () => {
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Code className="w-8 h-8 mb-0" />
+                <Code className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -444,7 +444,7 @@ const ProjectShowcase = () => {
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Brain className="w-8 h-8 mb-0" />
+                <Brain className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -456,7 +456,7 @@ const ProjectShowcase = () => {
                   }`}
               >
                 {/* Corrected component name here */}
-                <HardDrive className="w-8 h-8 mb-0" />
+                <HardDrive className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
             </div>

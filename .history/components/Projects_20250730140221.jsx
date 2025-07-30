@@ -2,10 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from 'next/image'; // Import the Image component for optimized image loading
 
-// Import icons for mobile categories
-import { Code, Brain, HardDrive } from 'lucide-react'; // Changed Harddrive to HardDrive
-
-
 const categories = ["All", "WebDev", "AI/ML", "Desktop"];
 
 const projects = [
@@ -204,7 +200,7 @@ const ProjectShowcase = () => {
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  // Removed isDropdownOpen state as dropdown is no longer used
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // State for falling stars animation
   const [stars, setStars] = useState([]);
@@ -269,7 +265,10 @@ const ProjectShowcase = () => {
     setIsAutoPlaying(false);
   };
 
-  // Removed handleCategorySelect as dropdown is gone
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setIsDropdownOpen(false);
+  };
 
   const handleTouchStart = (e) => {
     setTouchStartX(e.targetTouches[0].clientX);
@@ -371,19 +370,19 @@ const ProjectShowcase = () => {
           ))}
         </div>
 
-        {/* Top Right Image (Desktop Only - Original Position) */}
+        {/* Top Right Image (Desktop Only) */}
         <div className="absolute top-15 right-4 z-50 hidden md:block">
           <Image src="/assets/fishing.png" alt="Decorative fishing illustration" width={162.5} height={222.3} />
         </div>
 
         {/* Top Center Image (Mobile Only) */}
-        <div className="relative flex justify-center w-full mt-2 mb-0 md:hidden z-10">
+        <div className="relative flex justify-center w-full mb-4 md:hidden z-10">
           <Image
             src="/assets/fishing.png"
             alt="Decorative fishing illustration"
-            width={60} // Made width significantly smaller
-            height={82} // Adjusted height to maintain aspect ratio (original 222.3 / 162.5 * 60 = ~82.09)
-            className="w-auto h-auto" // Tailwind classes for auto sizing to respect Image component's width/height
+            width={162.5} // Original desktop width
+            height={222.3} // Original desktop height
+            className="w-16 h-auto" // Significantly smaller on mobile
           />
         </div>
 
@@ -402,67 +401,71 @@ const ProjectShowcase = () => {
         ></div>
 
         {/* Hero-style Heading */}
-        <div className="relative z-10 px-4 md:px-16 mt-0">
+        <div className="relative z-10 px-4 md:px-16 mt-0"> {/* Removed specific mt for mobile here, handled by section pt */}
           <h1 className="text-4xl md:text-8xl font-bold leading-tight text-center mb-6">
             <span className="text-orange-500">PROJECT </span>
             <span className="text-white">SHOWCASE</span>
           </h1>
 
-          {/* Category Filters (Mobile: Split Horizontal Sections) */}
-          <div className="flex flex-col justify-center items-center mt-4 md:hidden z-10">
-            {/* All Categories button for mobile */}
+          {/* Category Filters (Mobile: Dropdown) */}
+          <div className="flex justify-center mt-4 gap-6 flex-wrap md:hidden relative z-10">
             <button
-              onClick={() => setSelectedCategory("All")}
-              className={`relative px-6 py-2 text-base font-semibold transition-all duration-300
-                          ${selectedCategory === "All"
-                  ? "text-orange-500 border-b-2 border-orange-500"
-                  : "text-gray-400 hover:text-orange-300"
-                }
-                          bg-transparent flex items-center justify-center gap-2 mb-0 w-48`}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="relative px-6 py-2 text-sm font-semibold transition-all duration-300
+                          text-orange-500 border-b-2 border-orange-500 bg-transparent
+                          flex items-center justify-center gap-2 w-48 mx-auto"
             >
-              All Categories
+              {selectedCategory === "All" ? "Categories" : selectedCategory}{" "}
+              <span className="ml-2">
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </span>
             </button>
-
-            {/* Other Categories with Icons for mobile */}
-            <div className="flex justify-center gap-2 w-full max-w-xs mx-auto mb">
-              <button
-                onClick={() => setSelectedCategory("WebDev")}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300
-                            ${selectedCategory === "WebDev"
-                    ? "text-orange-500 bg-gray-800"
-                    : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
-                  }`}
-              >
-                <Code className="w-8 h-8 mb-0" />
-                {/* No text label here for mobile */}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("AI/ML")}
-                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300
-                            ${selectedCategory === "AI/ML"
-                    ? "text-orange-500 bg-gray-800"
-                    : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
-                  }`}
-              >
-                <Brain className="w-8 h-8 mb-0" />
-                {/* No text label here for mobile */}
-              </button>
-              <button
-                onClick={() => setSelectedCategory("Desktop")}
-                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300
-                            ${selectedCategory === "Desktop"
-                    ? "text-orange-500 bg-gray-800"
-                    : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
-                  }`}
-              >
-                {/* Corrected component name here */}
-                <HardDrive className="w-8 h-8 mb-0" />
-                {/* No text label here for mobile */}
-              </button>
-            </div>
+            {isDropdownOpen && (
+              <div className="absolute top-full mt-2 w-full max-w-[200px] bg-gray-900 rounded-md shadow-lg z-50 border border-gray-700 animate-fadeInUp mx-auto overflow-hidden">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    className={`relative block w-full text-left px-4 py-3 text-base transition-colors duration-200
+                      ${selectedCategory === cat
+                        ? "text-orange-500"
+                        : "text-gray-300 hover:text-orange-400 hover:bg-gray-800"
+                      }
+                      before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-0.5 before:bg-orange-500 before:transition-transform before:duration-300
+                      ${selectedCategory === cat
+                        ? "before:scale-x-100"
+                        : "before:scale-x-0"
+                      }
+                      `}
+                    onClick={() => handleCategorySelect(cat)}
+                  >
+                    {cat === "All"
+                      ? "All Projects"
+                      : cat === "WebDev"
+                        ? "</> Web Development"
+                        : cat === "AI/ML"
+                          ? "AI/Machine Learning"
+                          : "Desktop Apps"}{" "}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Category Filters (Desktop: Horizontal Bar - Unchanged) */}
+          {/* Category Filters (Desktop: Horizontal Bar) */}
           <div className="hidden md:flex justify-center mt-4 gap-10 flex-wrap z-10">
             {categories.map((cat) => (
               <button

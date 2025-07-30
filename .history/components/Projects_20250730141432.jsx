@@ -3,8 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from 'next/image'; // Import the Image component for optimized image loading
 
 // Import icons for mobile categories
-import { Code, Brain, HardDrive } from 'lucide-react'; // Changed Harddrive to HardDrive
-
+import { Code, Brain, Harddrive } from 'lucide-react'; // Example icons, adjust as needed
 
 const categories = ["All", "WebDev", "AI/ML", "Desktop"];
 
@@ -377,13 +376,13 @@ const ProjectShowcase = () => {
         </div>
 
         {/* Top Center Image (Mobile Only) */}
-        <div className="relative flex justify-center w-full mt-2 mb-0 md:hidden z-10">
+        <div className="relative flex justify-center w-full mt-4 mb-4 md:hidden z-10">
           <Image
             src="/assets/fishing.png"
             alt="Decorative fishing illustration"
-            width={60} // Made width significantly smaller
-            height={82} // Adjusted height to maintain aspect ratio (original 222.3 / 162.5 * 60 = ~82.09)
-            className="w-auto h-auto" // Tailwind classes for auto sizing to respect Image component's width/height
+            width={162.5}
+            height={222.3}
+            className="w-16 h-auto" // Significantly smaller on mobile
           />
         </div>
 
@@ -418,22 +417,22 @@ const ProjectShowcase = () => {
                   ? "text-orange-500 border-b-2 border-orange-500"
                   : "text-gray-400 hover:text-orange-300"
                 }
-                          bg-transparent flex items-center justify-center gap-2 mb-0 w-48`}
+                          bg-transparent flex items-center justify-center gap-2 mb-4 w-48`}
             >
               All Categories
             </button>
 
             {/* Other Categories with Icons for mobile */}
-            <div className="flex justify-center gap-2 w-full max-w-xs mx-auto mb">
+            <div className="flex justify-center gap-6 w-full max-w-xs mx-auto">
               <button
                 onClick={() => setSelectedCategory("WebDev")}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300
+                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300
                             ${selectedCategory === "WebDev"
                     ? "text-orange-500 bg-gray-800"
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Code className="w-8 h-8 mb-0" />
+                <Code className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -444,7 +443,7 @@ const ProjectShowcase = () => {
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Brain className="w-8 h-8 mb-0" />
+                <Brain className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -455,8 +454,7 @@ const ProjectShowcase = () => {
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                {/* Corrected component name here */}
-                <HardDrive className="w-8 h-8 mb-0" />
+                <Harddrive className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
             </div>

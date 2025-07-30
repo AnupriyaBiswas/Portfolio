@@ -377,7 +377,7 @@ const ProjectShowcase = () => {
         </div>
 
         {/* Top Center Image (Mobile Only) */}
-        <div className="relative flex justify-center w-full mt-2 mb-0 md:hidden z-10">
+        <div className="relative flex justify-center w-full mt-4 mb-4 md:hidden z-10">
           <Image
             src="/assets/fishing.png"
             alt="Decorative fishing illustration"
@@ -418,22 +418,22 @@ const ProjectShowcase = () => {
                   ? "text-orange-500 border-b-2 border-orange-500"
                   : "text-gray-400 hover:text-orange-300"
                 }
-                          bg-transparent flex items-center justify-center gap-2 mb-0 w-48`}
+                          bg-transparent flex items-center justify-center gap-2 mb-4 w-48`}
             >
               All Categories
             </button>
 
             {/* Other Categories with Icons for mobile */}
-            <div className="flex justify-center gap-2 w-full max-w-xs mx-auto mb">
+            <div className="flex justify-center gap-6 w-full max-w-xs mx-auto">
               <button
                 onClick={() => setSelectedCategory("WebDev")}
-                className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300
+                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300
                             ${selectedCategory === "WebDev"
                     ? "text-orange-500 bg-gray-800"
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Code className="w-8 h-8 mb-0" />
+                <Code className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -444,7 +444,7 @@ const ProjectShowcase = () => {
                     : "text-gray-400 hover:text-orange-300 hover:bg-gray-800"
                   }`}
               >
-                <Brain className="w-8 h-8 mb-0" />
+                <Brain className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
               <button
@@ -456,7 +456,7 @@ const ProjectShowcase = () => {
                   }`}
               >
                 {/* Corrected component name here */}
-                <HardDrive className="w-8 h-8 mb-0" />
+                <HardDrive className="w-8 h-8 mb-1" />
                 {/* No text label here for mobile */}
               </button>
             </div>
