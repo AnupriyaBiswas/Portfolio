@@ -18,13 +18,13 @@ const Background = () => {
     }));
     setStars(staticStars);
 
-    // Generate falling stars (vertical movement)
+    // Generate falling stars
     const falling = Array.from({ length: 60 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      duration: 15 + Math.random() * 20, // Duration of fall
-      delay: Math.random() * 15 // Staggered start
+      duration: 15 + Math.random() * 20,
+      delay: Math.random() * 15
     }));
     setFallingStars(falling);
 
@@ -40,48 +40,48 @@ const Background = () => {
     }));
     setSparkleStars(sparkles);
 
+    // Automatic shooting stars with randomized angles
     const createAutomaticShootingStar = () => {
-      const angle = 130;
+      // Random angle between 15° and 165° (avoiding too steep or too shallow)
+      const angle = 15 + Math.random() * 150;
       const angleRad = (angle * Math.PI) / 180;
       
-      // A distance of 150 ensures it covers more than the diagonal of a 100vw x 100vh screen.
-      const travelDistance = 150; 
+      // Calculate travel distance (diagonal across screen)
+      const distance = Math.sqrt(100 * 100 + 100 * 100); // ~141vw diagonal
       
-      // Calculate end position based on 45° angle
-      const deltaX = Math.cos(angleRad) * travelDistance; 
-      const deltaY = Math.sin(angleRad) * travelDistance;
+      // Calculate end position based on angle
+      const deltaX = Math.cos(angleRad) * distance;
+      const deltaY = Math.sin(angleRad) * distance;
 
       const newShootingStar = {
         id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
-        direction: {
-          x: deltaX,
-          y: deltaY
-        },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
+        startX: Math.random() * 100, // Random x position across top
+        startY: -5, // Start slightly above screen
+        deltaX: deltaX,
+        deltaY: deltaY,
+        duration: 2 + Math.random() * 1.5
       };
 
       setShootingStars(prev => [...prev, newShootingStar]);
 
-      // Remove shooting star after animation completes to prevent accumulation
+      // Remove shooting star after animation completes
       setTimeout(() => {
         setShootingStars(prev => prev.filter(star => star.id !== newShootingStar.id));
-      }, (newShootingStar.duration + 0.5) * 1000); // Add a small buffer
+      }, (newShootingStar.duration + 0.5) * 1000);
     };
 
-    // Create first shooting star immediately after component mounts
-    setTimeout(createAutomaticShootingStar, 1000);
+    // Create first shooting star immediately
+    createAutomaticShootingStar();
 
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 2000 + Math.random() * 3000); // Every 2-5 seconds
 
-    // Cleanup interval on component unmount
     return () => {
       clearInterval(shootingInterval);
     };
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
@@ -143,43 +143,46 @@ const Background = () => {
         />
       ))}
 
-      {/* Shooting stars with fixed 45-degree angle and aligned tail */}
+      {/* Shooting stars with randomized angles from top */}
       {shootingStars.map((shooting) => (
         <div
           key={`shooting-${shooting.id}`}
           className="absolute pointer-events-none"
           style={{
             left: `${shooting.startX}%`,
-            top: '-5%', // Start slightly above the viewport to ensure full entry
+            top: `${shooting.startY}%`,
             zIndex: 10,
-            // Custom CSS variables for animation
-            '--end-x': `${shooting.direction?.x || 60}vw`,
-            '--end-y': `${shooting.direction?.y || 80}vh`,
-            animation: `shootingStarMove ${shooting.duration}s ease-out forwards`, // Apply animation to the parent container
           }}
         >
-          {/* Shooting star tail (the fading trail) */}
           <div
             style={{
-              position: 'absolute',
-              width: '30px', // Length of the tail
-              height: '2px', // Thickness of the tail
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 70%, transparent 100%)',
-              
-              transform: `rotate(310deg)`, 
-              // Set the transform origin to the right edge of the tail (100% of its width)
-              // This ensures the tail rotates around the point where it connects to the head.
-              transformOrigin: '100% 50%', 
-              // Adjust left and top to align the tail's right edge with the center of the 5x5 head.
-              // Head center is at (2.5px, 2.5px) relative to its container.
-              // Tail's right edge should be at (2.5px, 2.5px).
-              // Tail width is 30px, so its left edge is 30px to the left of its right edge.
-              // Tail height is 2px, so its vertical center is 1px from its top edge.
-              left: '-27.5px', // 2.5px (head center x) - 30px (tail width) = -27.5px
-              top: '1.5px', // 2.5px (head center y) - 1px (tail half height) = 1.5px
-              zIndex: 9,
+              width: "4px",
+              height: "4px",
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              boxShadow: "0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff",
+              animation: `shootingStar-${shooting.id} ${shooting.duration}s ease-out forwards`,
             }}
           />
+          {/* Individual keyframe for each shooting star with its calculated angle */}
+          <style>{`
+            @keyframes shootingStar-${shooting.id} {
+              0% {
+                transform: translate(0, 0);
+                opacity: 0;
+              }
+              5% {
+                opacity: 1;
+              }
+              95% {
+                opacity: 0.8;
+              }
+              100% {
+                transform: translate(${shooting.deltaX}vw, ${shooting.deltaY}vh);
+                opacity: 0;
+              }
+            }
+          `}</style>
         </div>
       ))}
 
@@ -221,23 +224,6 @@ const Background = () => {
           100% { 
             transform: translateY(100vh) translateX(-30px); 
             opacity: 0; 
-          }
-        }
-
-        @keyframes shootingStarMove {
-          0% {
-            transform: translate(0, 0);
-            opacity: 0;
-          }
-          5% {
-            opacity: 1;
-          }
-          95% {
-            opacity: 0.8;
-          }
-          100% {
-            transform: translate(var(--end-x), var(--end-y));
-            opacity: 0;
           }
         }
 

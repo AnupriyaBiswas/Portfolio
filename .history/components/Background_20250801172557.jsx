@@ -18,13 +18,13 @@ const Background = () => {
     }));
     setStars(staticStars);
 
-    // Generate falling stars (vertical movement)
+    // Generate falling stars
     const falling = Array.from({ length: 60 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      duration: 15 + Math.random() * 20, // Duration of fall
-      delay: Math.random() * 15 // Staggered start
+      duration: 15 + Math.random() * 20,
+      delay: Math.random() * 15
     }));
     setFallingStars(falling);
 
@@ -40,51 +40,47 @@ const Background = () => {
     }));
     setSparkleStars(sparkles);
 
-    const createAutomaticShootingStar = () => {
-      const angle = 130;
-      const angleRad = (angle * Math.PI) / 180;
-      
-      // A distance of 150 ensures it covers more than the diagonal of a 100vw x 100vh screen.
-      const travelDistance = 150; 
-      
-      // Calculate end position based on 45° angle
-      const deltaX = Math.cos(angleRad) * travelDistance; 
-      const deltaY = Math.sin(angleRad) * travelDistance;
-
-      const newShootingStar = {
-        id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
-        direction: {
-          x: deltaX,
-          y: deltaY
-        },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
-      };
-
-      setShootingStars(prev => [...prev, newShootingStar]);
-
-      // Remove shooting star after animation completes to prevent accumulation
-      setTimeout(() => {
-        setShootingStars(prev => prev.filter(star => star.id !== newShootingStar.id));
-      }, (newShootingStar.duration + 0.5) * 1000); // Add a small buffer
-    };
-
-    // Create first shooting star immediately after component mounts
-    setTimeout(createAutomaticShootingStar, 1000);
-
-    // Set up interval for periodic shooting stars
+    // Periodic shooting star
     const shootingInterval = setInterval(() => {
-      createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+      createShootingStar();
+    }, 3000 + Math.random() * 4000);
 
-    // Cleanup interval on component unmount
     return () => {
       clearInterval(shootingInterval);
     };
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
+
+  const createShootingStar = (clickX = null, clickY = null) => {
+    const newShootingStar = {
+      id: Date.now() + Math.random(),
+      startX: clickX !== null ? clickX : Math.random() * 100,
+      startY: clickY !== null ? clickY : Math.random() * 100,
+      endX: Math.random() * 100,
+      endY: Math.random() * 100,
+      duration: 1.5 + Math.random() * 1
+    };
+
+    setShootingStars(prev => [...prev, newShootingStar]);
+
+    setTimeout(() => {
+      setShootingStars(prev => prev.filter(star => star.id !== newShootingStar.id));
+    }, (newShootingStar.duration + 0.5) * 1000);
+  };
+
+  const handleBackgroundClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = ((e.clientX - rect.left) / rect.width) * 100;
+    const clickY = ((e.clientY - rect.top) / rect.height) * 100;
+    
+    createShootingStar(clickX, clickY);
+  };
 
   return (
-    <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+    <div 
+      className="absolute inset-0 overflow-hidden cursor-crosshair"
+      style={{ zIndex: 0 }}
+      onClick={handleBackgroundClick}
+    >
       {/* Static round stars */}
       {stars.map((s) => (
         <div
@@ -116,9 +112,35 @@ const Background = () => {
             zIndex: 1,
           }}
         >
+          {/* 4-pointed star shape using CSS */}
+          <div
+            style={{
+              width: `${sparkle.size}px`,
+              height: `${sparkle.size}px`,
+              background: 'white',
+              position: 'relative',
+              transform: 'rotate(45deg)',
+            }}
+          >
+            {/* Diamond shape */}
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                background: 'white',
+                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+              }}
+            />
+          </div>
+          
+          {/* Alternative approach - using before and after pseudo elements */}
           <div
             className="sparkle-star"
             style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
               width: `${sparkle.size}px`,
               height: `${sparkle.size}px`,
             }}
@@ -143,47 +165,34 @@ const Background = () => {
         />
       ))}
 
-      {/* Shooting stars with fixed 45-degree angle and aligned tail */}
+      {/* Shooting stars */}
       {shootingStars.map((shooting) => (
         <div
           key={`shooting-${shooting.id}`}
-          className="absolute pointer-events-none"
+          className="absolute"
           style={{
             left: `${shooting.startX}%`,
-            top: '-5%', // Start slightly above the viewport to ensure full entry
-            zIndex: 10,
-            // Custom CSS variables for animation
-            '--end-x': `${shooting.direction?.x || 60}vw`,
-            '--end-y': `${shooting.direction?.y || 80}vh`,
-            animation: `shootingStarMove ${shooting.duration}s ease-out forwards`, // Apply animation to the parent container
+            top: `${shooting.startY}%`,
+            width: "3px",
+            height: "3px",
+            zIndex: 2,
           }}
         >
-          {/* Shooting star tail (the fading trail) */}
           <div
+            className="absolute bg-white rounded-full"
             style={{
-              position: 'absolute',
-              width: '30px', // Length of the tail
-              height: '2px', // Thickness of the tail
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 70%, transparent 100%)',
-              
-              transform: `rotate(310deg)`, 
-              // Set the transform origin to the right edge of the tail (100% of its width)
-              // This ensures the tail rotates around the point where it connects to the head.
-              transformOrigin: '100% 50%', 
-              // Adjust left and top to align the tail's right edge with the center of the 5x5 head.
-              // Head center is at (2.5px, 2.5px) relative to its container.
-              // Tail's right edge should be at (2.5px, 2.5px).
-              // Tail width is 30px, so its left edge is 30px to the left of its right edge.
-              // Tail height is 2px, so its vertical center is 1px from its top edge.
-              left: '-27.5px', // 2.5px (head center x) - 30px (tail width) = -27.5px
-              top: '1.5px', // 2.5px (head center y) - 1px (tail half height) = 1.5px
-              zIndex: 9,
+              width: "3px",
+              height: "3px",
+              boxShadow: "0 0 6px #ffffff, 0 0 12px #ffffff",
+              animation: `shootingStar ${shooting.duration}s ease-out forwards`,
+              '--dx': `${shooting.endX - shooting.startX}vw`,
+              '--dy': `${shooting.endY - shooting.startY}vh`,
             }}
           />
         </div>
       ))}
 
-      {/* CSS animations */}
+      {/* CSS animations and sparkle star styling */}
       <style jsx global>{`
         @keyframes twinkle {
           0%, 100% { 
@@ -223,29 +232,25 @@ const Background = () => {
             opacity: 0; 
           }
         }
-
-        @keyframes shootingStarMove {
+        
+        @keyframes shootingStar {
           0% {
             transform: translate(0, 0);
             opacity: 0;
           }
-          5% {
+          10% {
             opacity: 1;
           }
-          95% {
-            opacity: 0.8;
+          90% {
+            opacity: 1;
           }
           100% {
-            transform: translate(var(--end-x), var(--end-y));
+            transform: translate(var(--dx, 50vw), var(--dy, 50vh));
             opacity: 0;
           }
         }
 
         /* 4-pointed star shape using pseudo elements */
-        .sparkle-star {
-          position: relative;
-        }
-        
         .sparkle-star::before,
         .sparkle-star::after {
           content: '';

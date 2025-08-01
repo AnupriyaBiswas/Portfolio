@@ -53,12 +53,12 @@ const Background = () => {
 
       const newShootingStar = {
         id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
+        startX: Math.random() * 100, // Random x position across top of the screen
         direction: {
           x: deltaX,
           y: deltaY
         },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
+        duration: 4 + Math.random() * 1.5 // Random duration for animation
       };
 
       setShootingStars(prev => [...prev, newShootingStar]);
@@ -75,7 +75,7 @@ const Background = () => {
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 3000 + Math.random() * 2000); // Every 3-5 seconds
 
     // Cleanup interval on component unmount
     return () => {

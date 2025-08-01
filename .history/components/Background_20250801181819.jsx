@@ -53,12 +53,12 @@ const Background = () => {
 
       const newShootingStar = {
         id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
+        startX: Math.random() * 100, // Random x position across top of the screen
         direction: {
           x: deltaX,
           y: deltaY
         },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
+        duration: 2 + Math.random() * 1.5 // Random duration for animation
       };
 
       setShootingStars(prev => [...prev, newShootingStar]);
@@ -75,7 +75,7 @@ const Background = () => {
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 3000 + Math.random() * 2000); // Every 3-5 seconds
 
     // Cleanup interval on component unmount
     return () => {
@@ -158,6 +158,20 @@ const Background = () => {
             animation: `shootingStarMove ${shooting.duration}s ease-out forwards`, // Apply animation to the parent container
           }}
         >
+          {/* Shooting star head (the bright leading point) */}
+          <div
+            style={{
+              width: "5px",
+              height: "5px",
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              boxShadow: "0 0 15px #ffffff, 0 0 30px #ffffff, 0 0 45px #ffffff",
+              position: 'absolute', // Positioned relative to the parent div
+              left: '0', 
+              top: '0', 
+              zIndex: 10,
+            }}
+          />
           {/* Shooting star tail (the fading trail) */}
           <div
             style={{

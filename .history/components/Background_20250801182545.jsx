@@ -75,7 +75,7 @@ const Background = () => {
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 3000 + Math.random() * 2000); // Every 3-5 seconds
 
     // Cleanup interval on component unmount
     return () => {

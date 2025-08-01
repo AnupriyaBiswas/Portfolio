@@ -18,13 +18,13 @@ const Background = () => {
     }));
     setStars(staticStars);
 
-    // Generate falling stars (vertical movement)
+    // Generate falling stars
     const falling = Array.from({ length: 60 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      duration: 15 + Math.random() * 20, // Duration of fall
-      delay: Math.random() * 15 // Staggered start
+      duration: 15 + Math.random() * 20,
+      delay: Math.random() * 15
     }));
     setFallingStars(falling);
 
@@ -40,51 +40,60 @@ const Background = () => {
     }));
     setSparkleStars(sparkles);
 
+    // Predefined diagonal directions for variety
+    const directions = [
+      { x: 60, y: 80 },   // Down-right
+      { x: 80, y: 70 },   // More right
+      { x: 40, y: 90 },   // More down
+      { x: 70, y: 60 },   // Steep right
+      { x: 30, y: 80 },   // Left-down
+      { x: 90, y: 50 },   // Far right
+    ];
+
+    // Create shooting stars with multiple predefined directions
     const createAutomaticShootingStar = () => {
-      const angle = 130;
-      const angleRad = (angle * Math.PI) / 180;
-      
-      // A distance of 150 ensures it covers more than the diagonal of a 100vw x 100vh screen.
-      const travelDistance = 150; 
-      
-      // Calculate end position based on 45° angle
-      const deltaX = Math.cos(angleRad) * travelDistance; 
-      const deltaY = Math.sin(angleRad) * travelDistance;
+      const selectedDirection = directions[Math.floor(Math.random() * directions.length)];
 
       const newShootingStar = {
         id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
+        startX: Math.random() * 100, // Random x position across top
         direction: {
-          x: deltaX,
-          y: deltaY
+          x: selectedDirection.x,
+          y: selectedDirection.y
         },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
+        duration: 2 + Math.random() * 1.5
       };
 
+      console.log('Creating shooting star:', newShootingStar);
       setShootingStars(prev => [...prev, newShootingStar]);
 
-      // Remove shooting star after animation completes to prevent accumulation
+      // Remove shooting star after animation completes
       setTimeout(() => {
         setShootingStars(prev => prev.filter(star => star.id !== newShootingStar.id));
-      }, (newShootingStar.duration + 0.5) * 1000); // Add a small buffer
+      }, (newShootingStar.duration + 0.5) * 1000);
     };
 
-    // Create first shooting star immediately after component mounts
+    // Create first shooting star immediately
     setTimeout(createAutomaticShootingStar, 1000);
 
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 3000 + Math.random() * 2000); // Every 3-5 seconds
 
-    // Cleanup interval on component unmount
     return () => {
       clearInterval(shootingInterval);
     };
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
+      {/* Debug info */}
+      <div className="fixed top-4 left-4 bg-black bg-opacity-70 text-white p-2 text-xs rounded z-50">
+        <div>Active Shooting Stars: {shootingStars.length}</div>
+        <div>Next shooting star in ~3-5 seconds</div>
+      </div>
+
       {/* Static round stars */}
       {stars.map((s) => (
         <div
@@ -143,41 +152,27 @@ const Background = () => {
         />
       ))}
 
-      {/* Shooting stars with fixed 45-degree angle and aligned tail */}
+      {/* Shooting stars - Fixed with proper direction object */}
       {shootingStars.map((shooting) => (
         <div
           key={`shooting-${shooting.id}`}
           className="absolute pointer-events-none"
           style={{
             left: `${shooting.startX}%`,
-            top: '-5%', // Start slightly above the viewport to ensure full entry
+            top: '-5%',
             zIndex: 10,
-            // Custom CSS variables for animation
             '--end-x': `${shooting.direction?.x || 60}vw`,
             '--end-y': `${shooting.direction?.y || 80}vh`,
-            animation: `shootingStarMove ${shooting.duration}s ease-out forwards`, // Apply animation to the parent container
           }}
         >
-          {/* Shooting star tail (the fading trail) */}
           <div
             style={{
-              position: 'absolute',
-              width: '30px', // Length of the tail
-              height: '2px', // Thickness of the tail
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 70%, transparent 100%)',
-              
-              transform: `rotate(310deg)`, 
-              // Set the transform origin to the right edge of the tail (100% of its width)
-              // This ensures the tail rotates around the point where it connects to the head.
-              transformOrigin: '100% 50%', 
-              // Adjust left and top to align the tail's right edge with the center of the 5x5 head.
-              // Head center is at (2.5px, 2.5px) relative to its container.
-              // Tail's right edge should be at (2.5px, 2.5px).
-              // Tail width is 30px, so its left edge is 30px to the left of its right edge.
-              // Tail height is 2px, so its vertical center is 1px from its top edge.
-              left: '-27.5px', // 2.5px (head center x) - 30px (tail width) = -27.5px
-              top: '1.5px', // 2.5px (head center y) - 1px (tail half height) = 1.5px
-              zIndex: 9,
+              width: "5px",
+              height: "5px",
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              boxShadow: "0 0 15px #ffffff, 0 0 30px #ffffff, 0 0 45px #ffffff",
+              animation: `shootingStarMove ${shooting.duration}s ease-out forwards`,
             }}
           />
         </div>

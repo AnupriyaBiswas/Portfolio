@@ -40,10 +40,13 @@ const Background = () => {
     }));
     setSparkleStars(sparkles);
 
+    // Create shooting stars with fixed 45-degree angle
     const createAutomaticShootingStar = () => {
-      const angle = 130;
+      // Fixed angle at 45° for down-right movement
+      const angle = 60;
       const angleRad = (angle * Math.PI) / 180;
       
+      // Calculate travel distance to ensure it goes off-screen
       // A distance of 150 ensures it covers more than the diagonal of a 100vw x 100vh screen.
       const travelDistance = 150; 
       
@@ -53,12 +56,12 @@ const Background = () => {
 
       const newShootingStar = {
         id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
+        startX: Math.random() * 100, // Random x position across top of the screen
         direction: {
           x: deltaX,
           y: deltaY
         },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
+        duration: 2 + Math.random() * 1.5 // Random duration for animation
       };
 
       setShootingStars(prev => [...prev, newShootingStar]);
@@ -75,7 +78,7 @@ const Background = () => {
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 3000 + Math.random() * 2000); // Every 3-5 seconds
 
     // Cleanup interval on component unmount
     return () => {
@@ -158,6 +161,20 @@ const Background = () => {
             animation: `shootingStarMove ${shooting.duration}s ease-out forwards`, // Apply animation to the parent container
           }}
         >
+          {/* Shooting star head (the bright leading point) */}
+          <div
+            style={{
+              width: "5px",
+              height: "5px",
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              boxShadow: "0 0 15px #ffffff, 0 0 30px #ffffff, 0 0 45px #ffffff",
+              position: 'absolute', // Positioned relative to the parent div
+              left: '0', 
+              top: '0', 
+              zIndex: 10,
+            }}
+          />
           {/* Shooting star tail (the fading trail) */}
           <div
             style={{
@@ -165,8 +182,8 @@ const Background = () => {
               width: '30px', // Length of the tail
               height: '2px', // Thickness of the tail
               background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 70%, transparent 100%)',
-              
-              transform: `rotate(310deg)`, 
+              // Rotate the tail 225 degrees (45 degrees + 180 degrees) so it points backwards along the 45-degree trajectory.
+              transform: `rotate(225deg)`, 
               // Set the transform origin to the right edge of the tail (100% of its width)
               // This ensures the tail rotates around the point where it connects to the head.
               transformOrigin: '100% 50%', 
