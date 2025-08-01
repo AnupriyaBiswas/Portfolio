@@ -67,7 +67,7 @@ const Research = () => {
     <>
       <section
         id="research"
-        className="min-h-screen transparent text-white relative overflow-hidden w-screen flex flex-col justify-center items-center py-10 sm:py-20"
+        className="min-h-screen bg-black text-white relative overflow-hidden w-screen flex flex-col justify-center items-center py-10 sm:py-20"
       >
         {/* Keyframe Animations */}
         <style global jsx>{`

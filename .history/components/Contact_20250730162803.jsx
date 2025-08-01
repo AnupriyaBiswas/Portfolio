@@ -1,12 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Mail, Linkedin, Github, Globe } from "lucide-react"; // Make sure lucide-react is installed: npm install lucide-react
 
 const Contact = () => {
+  const [stars, setStars] = useState([]);
+
+  useEffect(() => {
+    const generateStars = () => {
+      const newStars = [];
+      for (let i = 0; i < 150; i++) {
+        newStars.push({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 3 + 1,
+          opacity: Math.random() * 0.8 + 0.2,
+          animationDuration: 25 + Math.random() * 20,
+          animationDelay: Math.random() * 10,
+          twinkleDuration: 6 + Math.random() * 8,
+        });
+      }
+      setStars(newStars);
+    };
+    generateStars();
+  }, []);
+
   return (
     <section
       id="contact"
-      className="min-h-screen flex flex-col transparent text-white relative overflow-hidden"
+      className="min-h-screen flex flex-col bg-black text-white relative overflow-hidden"
     >
+      {/* Animated Stars Background */}
+      <div className="absolute inset-0 overflow-hidden z-0">
+        {stars.map((star) => (
+          <div
+            key={star.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${star.x}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              opacity: star.opacity,
+              animation: `fall ${star.animationDuration}s linear ${star.animationDelay}s infinite, twinkle ${star.twinkleDuration}s ease-in-out infinite`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* CSS for starfall animation keyframes */}
+      <style>{`
+        @keyframes fall {
+          0% {
+            top: -10%;
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            top: 110%;
+            opacity: 0;
+          }
+        }
+        @keyframes twinkle {
+          0%,
+          100% {
+            opacity: 0.3;
+          }
+          50% {
+            opacity: 0.9;
+          }
+        }
+      `}</style>
+
       {/* Contact Page Background Image (Right Side) */}
       <img
         src="assets/contact.png" // Path to your contact image

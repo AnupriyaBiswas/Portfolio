@@ -5,7 +5,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="min-h-screen flex flex-col transparent text-white relative overflow-hidden"
+      className="min-h-screen flex flex-col bg-black text-white relative overflow-hidden"
     >
       {/* Contact Page Background Image (Right Side) */}
       <img

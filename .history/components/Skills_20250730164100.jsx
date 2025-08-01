@@ -134,7 +134,7 @@ const Skills = () => {
     <>
       <section
         id="skills"
-        className="min-h-screen transparent text-white relative overflow-hidden w-screen"
+        className="min-h-screen bg-black text-white relative overflow-hidden w-screen"
       >
         {/* Section Heading */}
         <div className="pt-36 pb-12 text-center z-10 relative">

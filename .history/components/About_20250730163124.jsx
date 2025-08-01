@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 transparent text-white relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 bg-black text-white relative overflow-hidden"
     >
       <div className="relative z-10 max-w-6xl w-full">
         {/* Heading */}

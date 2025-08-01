@@ -254,7 +254,7 @@ const ProjectShowcase = () => {
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
-      <section className="relative pt-20 md:pt-32 min-h-screen overflow-hidden transparent">
+      <section className="relative pt-20 md:pt-32 min-h-screen overflow-hidden bg-black">
         {/* Fishing Image */}
         <div className="absolute top-15 right-4 z-50 hidden md:block">
           <Image

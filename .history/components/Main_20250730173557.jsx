@@ -6,15 +6,17 @@ import Projects from "./Projects";
 import Research from "./Research";
 import Education from "./Education";
 import Contact from "./Contact";
-import Background from "./Background";
+import Constellations from "./Constellations";
 
 const Main = () => {
   return (
     <main className="w-full h-full scroll-smooth relative overflow-hidden bg-black">
-      {/* Background Layer */}
-      <Background />
+      {/* Starfield + Falling stars are already part of your global background */}
+      
+      {/* Constellations Layer */}
+      <Constellations />
 
-      {/* Content */}
+      {/* Page Content */}
       <Hero />
       <About />
       <Skills />

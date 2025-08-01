@@ -43,7 +43,7 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="min-h-screen transparent text-white relative overflow-hidden w-screen flex flex-col justify-center items-center py-10 sm:py-20"
+      className="min-h-screen bg-black text-white relative overflow-hidden w-screen flex flex-col justify-center items-center py-10 sm:py-20"
     >
       {/* 🪐 Heading */}
       <div className="pt-0 pb-0 text-center z-10 relative px-4 w-full">
