@@ -7,12 +7,14 @@ import Research from "./Research";
 import Education from "./Education";
 import Contact from "./Contact";
 import Background from "./Background";
+import CanvasBackground from "./CanvasBackground"; // Import the CanvasBackground component
 
 const Main = () => {
   return (
     <main className="w-full h-full scroll-smooth relative overflow-hidden bg-black">
-      {/* Background Layer */}
-      <Background />
+      {/* Background Layers */}
+      <Background /> {/* For static, twinkling, and shooting stars */}
+      <CanvasBackground /> {/* For high-performance falling stars */}
 
       {/* Content */}
       <Hero />

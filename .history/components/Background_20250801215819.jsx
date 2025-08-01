@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 const Background = () => {
   const [stars, setStars] = useState([]);
-  const [fallingStars, setFallingStars] = useState([]);
   const [shootingStars, setShootingStars] = useState([]);
   const [sparkleStars, setSparkleStars] = useState([]);
 
@@ -18,18 +17,8 @@ const Background = () => {
     }));
     setStars(staticStars);
 
-    // Generate falling stars (vertical movement)
-    const falling = Array.from({ length: 60 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      duration: 15 + Math.random() * 20, // Duration of fall
-      delay: Math.random() * 15 // Staggered start
-    }));
-    setFallingStars(falling);
-
     // Generate 4-pointed sparkle stars
-    const sparkles = Array.from({ length: 30 }, (_, i) => ({
+    const sparkles = Array.from({ length: 100 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -40,42 +29,51 @@ const Background = () => {
     }));
     setSparkleStars(sparkles);
 
+    // Function to create a single shooting star (the one with a tail)
     const createAutomaticShootingStar = () => {
-      const angle = 130;
+      // Angle for diagonal movement (e.g., 315 degrees for top-right to bottom-left)
+      const angle = 315;
       const angleRad = (angle * Math.PI) / 180;
-      
-      // A distance of 150 ensures it covers more than the diagonal of a 100vw x 100vh screen.
-      const travelDistance = 150; 
-      
-      // Calculate end position based on 45° angle
-      const deltaX = Math.cos(angleRad) * travelDistance; 
+
+      // Calculate travel distance to ensure it crosses the entire viewport
+      // Diagonal of a 100vw x 100vh screen is sqrt(100^2 + 100^2) = 141.4.
+      // A bit more to ensure it starts and ends fully off-screen.
+      const travelDistance = 180;
+
+      // Calculate end position based on angle
+      const deltaX = Math.cos(angleRad) * travelDistance;
       const deltaY = Math.sin(angleRad) * travelDistance;
 
       const newShootingStar = {
         id: Date.now() + Math.random(),
-        startX: Math.random() * (75 - 25) + 25,
+        // Start X position, ensuring it starts off-screen or near the edge
+        // For 315 degrees, it starts top-right and moves to bottom-left.
+        // So, startX should be high (e.g., 90-100%)
+        startX: 90 + Math.random() * 10, // Start from 90% to 100% of screen width
+        startY: -5, // Start slightly above the viewport
         direction: {
           x: deltaX,
           y: deltaY
         },
-        duration: 5 + Math.random() * 1.5 // Random duration for animation
+        duration: 3 + Math.random() * 2 // Random duration for animation (3 to 5 seconds)
       };
 
       setShootingStars(prev => [...prev, newShootingStar]);
 
       // Remove shooting star after animation completes to prevent accumulation
+      // Add a small buffer to ensure it's fully off-screen before removal
       setTimeout(() => {
         setShootingStars(prev => prev.filter(star => star.id !== newShootingStar.id));
-      }, (newShootingStar.duration + 0.5) * 1000); // Add a small buffer
+      }, (newShootingStar.duration + 0.5) * 1000);
     };
 
     // Create first shooting star immediately after component mounts
-    setTimeout(createAutomaticShootingStar, 1000);
+    createAutomaticShootingStar();
 
     // Set up interval for periodic shooting stars
     const shootingInterval = setInterval(() => {
       createAutomaticShootingStar();
-    }, 5000 + Math.random() * 2000); // Every 3-5 seconds
+    }, 5000 + Math.random() * 3000); // Every 5-8 seconds
 
     // Cleanup interval on component unmount
     return () => {
@@ -126,38 +124,32 @@ const Background = () => {
         </div>
       ))}
 
-      {/* Falling stars */}
-      {fallingStars.map((f) => (
-        <div
-          key={`falling-${f.id}`}
-          className="absolute bg-white rounded-full"
-          style={{
-            left: `${f.x}%`,
-            top: `${f.y}%`,
-            width: "2px",
-            height: "2px",
-            animation: `fall ${f.duration}s linear infinite`,
-            animationDelay: `${f.delay}s`,
-            zIndex: 1,
-          }}
-        />
-      ))}
-
-      {/* Shooting stars with fixed 45-degree angle and aligned tail */}
+      {/* Shooting stars with fixed angle and aligned tail */}
       {shootingStars.map((shooting) => (
         <div
           key={`shooting-${shooting.id}`}
           className="absolute pointer-events-none"
           style={{
             left: `${shooting.startX}%`,
-            top: '-5%', // Start slightly above the viewport to ensure full entry
+            top: `${shooting.startY}%`,
             zIndex: 10,
             // Custom CSS variables for animation
-            '--end-x': `${shooting.direction?.x || 60}vw`,
-            '--end-y': `${shooting.direction?.y || 80}vh`,
+            '--end-x': `${shooting.direction.x}vw`,
+            '--end-y': `${shooting.direction.y}vh`,
             animation: `shootingStarMove ${shooting.duration}s ease-out forwards`, // Apply animation to the parent container
           }}
         >
+          {/* Shooting star head (a small dot) */}
+          <div
+            className="absolute rounded-full bg-white"
+            style={{
+              width: '3px', // Small head for the shooting star
+              height: '3px',
+              left: '0',
+              top: '0',
+              zIndex: 10,
+            }}
+          />
           {/* Shooting star tail (the fading trail) */}
           <div
             style={{
@@ -165,18 +157,10 @@ const Background = () => {
               width: '30px', // Length of the tail
               height: '2px', // Thickness of the tail
               background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 70%, transparent 100%)',
-              
-              transform: `rotate(310deg)`, 
-              // Set the transform origin to the right edge of the tail (100% of its width)
-              // This ensures the tail rotates around the point where it connects to the head.
-              transformOrigin: '100% 50%', 
-              // Adjust left and top to align the tail's right edge with the center of the 5x5 head.
-              // Head center is at (2.5px, 2.5px) relative to its container.
-              // Tail's right edge should be at (2.5px, 2.5px).
-              // Tail width is 30px, so its left edge is 30px to the left of its right edge.
-              // Tail height is 2px, so its vertical center is 1px from its top edge.
-              left: '-27.5px', // 2.5px (head center x) - 30px (tail width) = -27.5px
-              top: '1.5px', // 2.5px (head center y) - 1px (tail half height) = 1.5px
+              transform: `rotate(${315}deg)`, // Tail angle should match the shooting star's path
+              transformOrigin: '100% 50%', // Rotate around the right edge of the tail
+              left: '-27px', // Align tail's right edge with head's center (3px head, so 1.5px center)
+              top: '0.5px', // Align tail's vertical center with head's center (3px head, so 1.5px center)
               zIndex: 9,
             }}
           />
@@ -186,41 +170,24 @@ const Background = () => {
       {/* CSS animations */}
       <style jsx global>{`
         @keyframes twinkle {
-          0%, 100% { 
-            opacity: 0.3; 
+          0%, 100% {
+            opacity: 0.3;
             transform: scale(1);
           }
-          50% { 
-            opacity: 1; 
+          50% {
+            opacity: 1;
             transform: scale(1.2);
           }
         }
-        
+
         @keyframes sparkle {
-          0%, 100% { 
-            opacity: 0.2; 
+          0%, 100% {
+            opacity: 0.2;
             transform: scale(0.8) rotate(0deg);
           }
-          50% { 
-            opacity: 1; 
+          50% {
+            opacity: 1;
             transform: scale(1.2) rotate(180deg);
-          }
-        }
-        
-        @keyframes fall {
-          0% { 
-            transform: translateY(-100vh) translateX(0); 
-            opacity: 0; 
-          }
-          10% { 
-            opacity: 1; 
-          }
-          90% { 
-            opacity: 1; 
-          }
-          100% { 
-            transform: translateY(100vh) translateX(-30px); 
-            opacity: 0; 
           }
         }
 
@@ -245,7 +212,7 @@ const Background = () => {
         .sparkle-star {
           position: relative;
         }
-        
+
         .sparkle-star::before,
         .sparkle-star::after {
           content: '';
@@ -255,12 +222,12 @@ const Background = () => {
           transform: translate(-50%, -50%);
           background: white;
         }
-        
+
         .sparkle-star::before {
           width: 100%;
           height: 2px;
         }
-        
+
         .sparkle-star::after {
           width: 2px;
           height: 100%;

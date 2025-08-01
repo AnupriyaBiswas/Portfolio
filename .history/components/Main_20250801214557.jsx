@@ -7,12 +7,14 @@ import Research from "./Research";
 import Education from "./Education";
 import Contact from "./Contact";
 import Background from "./Background";
+import CanvasBackground from "./CanvasBackground"; // <-- New import
 
 const Main = () => {
   return (
     <main className="w-full h-full scroll-smooth relative overflow-hidden bg-black">
-      {/* Background Layer */}
+      {/* Background Layers */}
       <Background />
+      <CanvasBackground /> {/* <-- New Canvas component for high-performance animations */}
 
       {/* Content */}
       <Hero />

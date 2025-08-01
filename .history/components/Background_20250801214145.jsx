@@ -19,7 +19,7 @@ const Background = () => {
     setStars(staticStars);
 
     // Generate falling stars (vertical movement)
-    const falling = Array.from({ length: 60 }, (_, i) => ({
+    const falling = Array.from({ length: 200 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -29,7 +29,7 @@ const Background = () => {
     setFallingStars(falling);
 
     // Generate 4-pointed sparkle stars
-    const sparkles = Array.from({ length: 30 }, (_, i) => ({
+    const sparkles = Array.from({ length: 100 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,

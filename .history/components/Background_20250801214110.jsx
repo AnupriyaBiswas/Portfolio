@@ -19,7 +19,7 @@ const Background = () => {
     setStars(staticStars);
 
     // Generate falling stars (vertical movement)
-    const falling = Array.from({ length: 60 }, (_, i) => ({
+    const falling = Array.from({ length: 200 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,

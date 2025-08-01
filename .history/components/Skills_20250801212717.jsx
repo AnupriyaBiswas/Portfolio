@@ -153,7 +153,36 @@ const Skills = () => {
             className="absolute w-24 sm:w-32 md:w-40 h-auto z-30 object-contain"
           />
 
-          
+          {/* SVG for Orbits */}
+          <div className="absolute inset-0 z-0 flex items-center justify-center">
+            <svg
+              viewBox="0 0 1000 1000"
+              className="w-full h-full max-w-[1000px] opacity-60"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              {[0, 1, 2].map((i) => {
+                const spacingFactor = i * 0.2;
+                const effectiveRadiusX = Math.max(0, orbitRadii.radiusX * (1 - spacingFactor));
+                const effectiveRadiusY = Math.max(0, orbitRadii.radiusY * (1 - spacingFactor));
+                const strokeWidth = isSmallScreen ? 1.5 : 1;
+
+                return (
+                  <ellipse
+                    key={i}
+                    cx={svgCenterX}
+                    cy={svgCenterY}
+                    rx={effectiveRadiusX}
+                    ry={effectiveRadiusY}
+                    fill="none"
+                    stroke="white"
+                    strokeDasharray="4 4"
+                    strokeOpacity="0.5"
+                    strokeWidth={strokeWidth}
+                  />
+                );
+              })}
+            </svg>
+          </div>
 
           {/* Orbiting Planets */}
           {Object.entries(skillsData).map(([category, data]) => {
