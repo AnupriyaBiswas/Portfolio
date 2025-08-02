@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const educationItems = [
   {
@@ -17,7 +18,7 @@ const educationItems = [
     subject: "Computer Science & Engineering",
     institute: "RCC Institute of Information Technology",
     address: "Kolkata, West-Bengal",
-    notes: "Completed a comprehensive program focusing on software development, algorithms, and data structures.",
+    notes: "Completed a comprehensive program focusing on software development, algorithms, and data structures. Gained hands-on experience in various programming paradigms.",
   },
   {
     id: 3,
@@ -47,7 +48,7 @@ const Education = () => {
     >
       {/* 🪐 Heading */}
       <div className="pt-0 pb-0 text-center z-10 relative px-4 w-full">
-        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-0 leading-tight">
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-0">
           <span className="text-orange-500">EDUCATION</span>{" "}
           <span className="text-white">JOURNEY</span>
         </h2>
@@ -58,38 +59,64 @@ const Education = () => {
         id="education-timeline-container"
         className="relative z-10 w-full max-w-5xl mx-auto py-8 px-4"
       >
-        {/* Central Timeline Line (hidden on small screens) */}
-        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700 rounded-full z-0"></div>
+        {/* Central Timeline Line */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-700 rounded-full z-0"></div>
 
         {educationItems.map((item, index) => (
           <div
             key={item.id}
-            className={`relative flex flex-col md:grid md:grid-cols-2 gap-x-16
+            className={`relative flex items-center md:grid md:grid-cols-2 gap-x-16
                         ${
                           index === educationItems.length - 1
                             ? "mb-0"
-                            : "mb-6 md:mb-12"
+                            : "mb-8 md:mb-12"
                         }`}
           >
+            {/* Card Content */}
+            <div
+              className={`w-full
+                          ${
+                            index % 2 === 1
+                              ? "md:col-start-1 md:col-end-2 md:text-right"
+                              : "md:col-start-2 md:col-end-3 md:text-left"
+                          }`}
+            >
+              <div className="px-4 py-2">
+                <h3 className="text-xl md:text-2xl font-bold text-orange-400 mb-0.5 leading-tight">
+                  {item.degree}
+                </h3>
+                {item.subject && (
+                  <p className="text-gray-200 text-lg mb-0.5">
+                    {item.subject}
+                  </p>
+                )}
+                <p className="text-gray-200 text-lg mb-0.5">
+                  {item.institute}
+                </p>
+                <p className="text-gray-400 text-base italic mb-1">
+                  {item.address}
+                </p>
+              </div>
+            </div>
+
             {/* Year text */}
             <div
-              className={`md:absolute md:top-0 md:transform md:-translate-y-1/2 z-15 mb-2 md:mb-0
-                ${
-                  index % 2 === 0
-                    ? "md:right-1/2 md:mr-8 md:text-right"
-                    : "md:left-1/2 md:ml-8 md:text-left"
-                }`}
+              className={`absolute top-0 transform -translate-y-1/2 z-15 ${
+                index % 2 === 0
+                  ? "right-1/2 mr-4 md:mr-8 text-right"
+                  : "left-1/2 ml-4 md:ml-8 text-left"
+              }`}
               style={{ top: "16px" }}
             >
-              <span className="text-orange-300 text-sm sm:text-base font-semibold whitespace-nowrap px-1 py-0.5">
+              <span className="text-orange-300 text-xs md:text-sm font-semibold whitespace-nowrap px-1 py-0.5">
                 {item.year}
               </span>
             </div>
 
-            {/* Timeline Dot (hidden on small screens) */}
+            {/* Timeline Dot */}
             <div
-              className="hidden md:flex absolute top-0 transform -translate-y-1/2 w-6 h-6 rounded-full
-                          bg-orange-500 border-2 border-orange-300 z-10 items-center justify-center"
+              className="absolute top-0 transform -translate-y-1/2 w-6 h-6 rounded-full
+                          bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
               style={{
                 left: "50%",
                 transform: "translateX(-50%) translateY(16px)",
@@ -97,44 +124,18 @@ const Education = () => {
             >
               <div className="w-2 h-2 rounded-full bg-white animate-pulse-fast"></div>
             </div>
-
-            {/* Card Content */}
-            <div
-              className={`w-full bg-gray-900/40 backdrop-blur-sm rounded-lg p-4 border border-gray-700
-                          ${
-                            index % 2 === 1
-                              ? "md:col-start-1 md:col-end-2 md:text-right"
-                              : "md:col-start-2 md:col-end-3 md:text-left"
-                          }`}
-            >
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-orange-400 mb-1 leading-tight">
-                {item.degree}
-              </h3>
-              {item.subject && (
-                <p className="text-gray-200 text-sm sm:text-base mb-1">
-                  {item.subject}
-                </p>
-              )}
-              <p className="text-gray-200 text-sm sm:text-base mb-1">
-                {item.institute}
-              </p>
-              <p className="text-gray-400 text-xs sm:text-sm italic mb-1">
-                {item.address}
-              </p>
-              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                {item.notes}
-              </p>
-            </div>
           </div>
         ))}
       </div>
 
       {/* Education End Image */}
       <div className="mt-4 relative z-10">
-        <img
+        <Image
           src="/assets/educationEnd.png"
           alt="End of Education Timeline"
-          className="w-16 sm:w-20 md:w-24 h-auto mx-auto opacity-80"
+          width={96} // w-24 = 6rem = 96px
+          height={96}
+          className="mx-auto opacity-80 h-auto"
         />
       </div>
     </section>
