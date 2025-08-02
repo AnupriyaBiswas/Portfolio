@@ -140,7 +140,7 @@ const Education = () => {
       </div>
 
       {/* Education End Image */}
-      <div className="mt-4 relative z-10 w-full flex justify-start md:justify-center">
+      <div className="mt-4 relative z-10 flex justify-start md:justify-center">
         <img
           src="/assets/educationEnd.png"
           alt="End of Education Timeline"

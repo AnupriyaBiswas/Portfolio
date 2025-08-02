@@ -61,20 +61,20 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="min-h-screen transparent text-white relative overflow-hidden w-screen flex flex-col justify-center items-center py-10 sm:py-20"
+      className="min-h-screen transparent text-white relative overflow-hidden w-full flex flex-col justify-center items-center py-10 sm:py-20"
     >
       {/* Heading */}
-      <div className="pt-0 pb-0 text-center z-10 relative px-2 sm:px-4 w-full">
-        <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-0 leading-tight">
+      <div className="pt-0 pb-0 text-center z-10 relative px-4 sm:px-4 w-full">
+        <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight mb-0 leading-tight">
           <span className="text-orange-500">EDUCATION</span>{" "}
           <span className="text-white">JOURNEY</span>
         </h2>
       </div>
 
       {/* Timeline */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto py-8 px-2 sm:px-4">
-        {/* Central Line */}
-        <div className="absolute left-7 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
+      <div className="relative z-10 w-full max-w-5xl mx-auto py-8 px-4 sm:px-4">
+        {/* Central Line - Hidden on mobile, visible on md+ */}
+        <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
 
         {educationItems.map((item, index) => (
           <div
@@ -83,9 +83,28 @@ const Education = () => {
             className={`relative flex md:grid md:grid-cols-2 gap-x-6 sm:gap-x-12 cursor-pointer 
                         ${index === educationItems.length - 1 ? "mb-0" : "mb-12 sm:mb-16"}`}
           >
-            {/* Basic Info */}
+            {/* Mobile Layout - Content after dot */}
+            <div className="md:hidden w-full pl-12">
+              {/* Year - Above content on mobile */}
+              <div className="mb-2">
+                <span className="text-orange-300 text-xs font-semibold px-2 py-1 bg-black/70 rounded">
+                  {item.year}
+                </span>
+              </div>
+              
+              <h3 className="text-lg font-bold text-orange-400 mb-1">
+                {item.degree}
+              </h3>
+              {item.subject && (
+                <p className="text-gray-200 text-sm mb-1">{item.subject}</p>
+              )}
+              <p className="text-gray-200 text-sm mb-1">{item.institute}</p>
+              <p className="text-gray-400 text-xs italic">{item.address}</p>
+            </div>
+
+            {/* Desktop Layout - Original grid system */}
             <div
-              className={`w-full px-2 sm:px-4 max-w-xs sm:max-w-sm md:max-w-full break-words ml-12 md:ml-0
+              className={`hidden md:block w-full px-2 sm:px-4 max-w-xs sm:max-w-sm md:max-w-full break-words
                 ${index % 2 === 1 ? "md:col-start-1 md:text-right" : "md:col-start-2 md:text-left"}`}
               style={{ marginTop: "30px" }}
             >
@@ -99,10 +118,11 @@ const Education = () => {
               <p className="text-gray-400 text-xs sm:text-sm italic">{item.address}</p>
             </div>
 
-            {/* Year */}
+            {/* Year - Desktop only */}
             <div
-              className={`absolute z-15 ${index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
-                } md:block hidden`}
+              className={`hidden md:block absolute z-15 ${
+                index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
+              }`}
               style={{ top: "-10px" }}
             >
               <span className="text-orange-300 text-[10px] sm:text-xs md:text-sm font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
@@ -110,75 +130,51 @@ const Education = () => {
               </span>
             </div>
 
-            {/* Mobile Year */}
+            {/* Dot - Mobile: on timeline, Desktop: centered */}
             <div
-              className="md:hidden absolute z-15 left-12"
-              style={{ top: "-10px" }}
+              className="absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center transform -translate-x-1/2"
+              style={{ 
+                left: "16px", // 4 * 0.25rem = 1rem = 16px (left-4 position)
+                top: "8px" 
+              }}
             >
-              <span className="text-orange-300 text-[10px] sm:text-xs font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
-                {item.year}
-              </span>
-            </div>
-
-            {/* Mobile Dot */}
-            <div
-              className="md:hidden absolute w-4 h-4 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
-              style={{ left: "21px", transform: "translateX(-50%) translateY(8px)" }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></div>
-            </div>
-
-            {/* Desktop Dot */}
-            <div
-              className="hidden md:flex absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 items-center justify-center"
-              style={{ left: "50%", transform: "translateX(-50%) translateY(8px)" }}
-            >
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse-fast"></div>
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse"></div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Education End Image */}
-      <div className="mt-4 relative z-10 w-full flex justify-start md:justify-center">
-        <img
-          src="/assets/educationEnd.png"
-          alt="End of Education Timeline"
-          className="w-16 sm:w-20 md:w-24 h-auto opacity-80"
-        />
-      </div>
-
       {/* Modal */}
       {selectedItem && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[100]"
+          className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[100] p-4"
           onClick={closeModal}
         >
           <div
-            className="relative bg-gray-900 rounded-xl p-6 sm:p-8 shadow-2xl border-2 border-orange-500 max-w-lg w-full mx-4"
+            className="relative bg-gray-900 rounded-xl p-6 sm:p-8 shadow-2xl border-2 border-orange-500 max-w-lg w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Floating Logo */}
-            <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
+            {/* Floating Logo - Adjusted for mobile */}
+            <div className="absolute -top-12 sm:-top-16 left-1/2 transform -translate-x-1/2">
               <img
                 src={selectedItem.logo}
                 alt={selectedItem.institute}
-                className="w-24 h-24 object-contain drop-shadow-lg"
+                className="w-16 h-16 sm:w-24 sm:h-24 object-contain drop-shadow-lg"
               />
             </div>
 
             {/* Close Button */}
             <button
-              className="absolute top-3 right-3 text-gray-400 hover:text-white text-3xl"
+              className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl sm:text-3xl"
               onClick={closeModal}
             >
               &times;
             </button>
 
             {/* Content */}
-            <div className="mt-12 text-center">
-              <h3 className="text-2xl font-bold text-orange-400 mb-2">{selectedItem.degree}</h3>
-              <p className="text-lg text-gray-200 mb-1">{selectedItem.institute}</p>
+            <div className="mt-8 sm:mt-12 text-center">
+              <h3 className="text-xl sm:text-2xl font-bold text-orange-400 mb-2">{selectedItem.degree}</h3>
+              <p className="text-base sm:text-lg text-gray-200 mb-1">{selectedItem.institute}</p>
               <p className="text-sm italic text-gray-400 mb-4">{selectedItem.address}</p>
 
               {/* Note */}
@@ -188,18 +184,18 @@ const Education = () => {
 
               {/* Academic Details */}
               {selectedItem.details.CGPA && (
-                <p className="text-gray-200 text-base mb-2">
+                <p className="text-gray-200 text-sm sm:text-base mb-2">
                   <span className="font-semibold">Graduated with a CGPA of </span> {selectedItem.details.CGPA}
                 </p>
               )}
               {selectedItem.details.Percentage && (
-                <p className="text-gray-200 text-base mb-2">
+                <p className="text-gray-200 text-sm sm:text-base mb-2">
                   <span className="font-semibold">Passed with a Percentage of</span>{" "}
                   {selectedItem.details.Percentage}
                 </p>
               )}
               {selectedItem.details.Subjects && (
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
                   <span className="font-semibold">Subjects:</span>{" "}
                   {selectedItem.details.Subjects}
                 </p>

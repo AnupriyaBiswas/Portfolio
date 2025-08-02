@@ -74,7 +74,7 @@ const Education = () => {
       {/* Timeline */}
       <div className="relative z-10 w-full max-w-5xl mx-auto py-8 px-2 sm:px-4">
         {/* Central Line */}
-        <div className="absolute left-7 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
+        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
 
         {educationItems.map((item, index) => (
           <div
@@ -83,9 +83,9 @@ const Education = () => {
             className={`relative flex md:grid md:grid-cols-2 gap-x-6 sm:gap-x-12 cursor-pointer 
                         ${index === educationItems.length - 1 ? "mb-0" : "mb-12 sm:mb-16"}`}
           >
-            {/* Basic Info */}
+            {/* Card Info */}
             <div
-              className={`w-full px-2 sm:px-4 max-w-xs sm:max-w-sm md:max-w-full break-words ml-12 md:ml-0
+              className={`w-full px-2 sm:px-4 max-w-xs sm:max-w-sm md:max-w-full break-words
                 ${index % 2 === 1 ? "md:col-start-1 md:text-right" : "md:col-start-2 md:text-left"}`}
               style={{ marginTop: "30px" }}
             >
@@ -96,13 +96,19 @@ const Education = () => {
                 <p className="text-gray-200 text-sm sm:text-base mb-1">{item.subject}</p>
               )}
               <p className="text-gray-200 text-sm sm:text-base mb-1">{item.institute}</p>
-              <p className="text-gray-400 text-xs sm:text-sm italic">{item.address}</p>
+              <p className="text-gray-400 text-xs sm:text-sm italic mb-1">{item.address}</p>
+
+              {/* Added Note */}
+              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                {item.note}
+              </p>
             </div>
 
             {/* Year */}
             <div
-              className={`absolute z-15 ${index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
-                } md:block hidden`}
+              className={`absolute z-15 ${
+                index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
+              }`}
               style={{ top: "-10px" }}
             >
               <span className="text-orange-300 text-[10px] sm:text-xs md:text-sm font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
@@ -110,42 +116,15 @@ const Education = () => {
               </span>
             </div>
 
-            {/* Mobile Year */}
+            {/* Dot */}
             <div
-              className="md:hidden absolute z-15 left-12"
-              style={{ top: "-10px" }}
-            >
-              <span className="text-orange-300 text-[10px] sm:text-xs font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
-                {item.year}
-              </span>
-            </div>
-
-            {/* Mobile Dot */}
-            <div
-              className="md:hidden absolute w-4 h-4 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
-              style={{ left: "21px", transform: "translateX(-50%) translateY(8px)" }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></div>
-            </div>
-
-            {/* Desktop Dot */}
-            <div
-              className="hidden md:flex absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 items-center justify-center"
+              className="absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
               style={{ left: "50%", transform: "translateX(-50%) translateY(8px)" }}
             >
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse-fast"></div>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Education End Image */}
-      <div className="mt-4 relative z-10 w-full flex justify-start md:justify-center">
-        <img
-          src="/assets/educationEnd.png"
-          alt="End of Education Timeline"
-          className="w-16 sm:w-20 md:w-24 h-auto opacity-80"
-        />
       </div>
 
       {/* Modal */}
@@ -181,27 +160,19 @@ const Education = () => {
               <p className="text-lg text-gray-200 mb-1">{selectedItem.institute}</p>
               <p className="text-sm italic text-gray-400 mb-4">{selectedItem.address}</p>
 
-              {/* Note */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                {selectedItem.note}
-              </p>
-
-              {/* Academic Details */}
               {selectedItem.details.CGPA && (
                 <p className="text-gray-200 text-base mb-2">
-                  <span className="font-semibold">Graduated with a CGPA of </span> {selectedItem.details.CGPA}
+                  <span className="font-semibold">CGPA:</span> {selectedItem.details.CGPA}
                 </p>
               )}
               {selectedItem.details.Percentage && (
                 <p className="text-gray-200 text-base mb-2">
-                  <span className="font-semibold">Passed with a Percentage of</span>{" "}
-                  {selectedItem.details.Percentage}
+                  <span className="font-semibold">Percentage:</span> {selectedItem.details.Percentage}
                 </p>
               )}
               {selectedItem.details.Subjects && (
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  <span className="font-semibold">Subjects:</span>{" "}
-                  {selectedItem.details.Subjects}
+                  <span className="font-semibold">Subjects:</span> {selectedItem.details.Subjects}
                 </p>
               )}
             </div>

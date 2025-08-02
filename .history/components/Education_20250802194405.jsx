@@ -74,7 +74,7 @@ const Education = () => {
       {/* Timeline */}
       <div className="relative z-10 w-full max-w-5xl mx-auto py-8 px-2 sm:px-4">
         {/* Central Line */}
-        <div className="absolute left-7 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
+        <div className="absolute left-6 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
 
         {educationItems.map((item, index) => (
           <div
@@ -101,8 +101,9 @@ const Education = () => {
 
             {/* Year */}
             <div
-              className={`absolute z-15 ${index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
-                } md:block hidden`}
+              className={`absolute z-15 left-12 md:left-auto ${
+                index % 2 === 0 ? "md:right-1/2 md:mr-1 sm:md:mr-4 md:text-right" : "md:left-1/2 md:ml-1 sm:md:ml-4 md:text-left"
+              }`}
               style={{ top: "-10px" }}
             >
               <span className="text-orange-300 text-[10px] sm:text-xs md:text-sm font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
@@ -110,42 +111,15 @@ const Education = () => {
               </span>
             </div>
 
-            {/* Mobile Year */}
+            {/* Dot */}
             <div
-              className="md:hidden absolute z-15 left-12"
-              style={{ top: "-10px" }}
-            >
-              <span className="text-orange-300 text-[10px] sm:text-xs font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
-                {item.year}
-              </span>
-            </div>
-
-            {/* Mobile Dot */}
-            <div
-              className="md:hidden absolute w-4 h-4 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
-              style={{ left: "21px", transform: "translateX(-50%) translateY(8px)" }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></div>
-            </div>
-
-            {/* Desktop Dot */}
-            <div
-              className="hidden md:flex absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 items-center justify-center"
-              style={{ left: "50%", transform: "translateX(-50%) translateY(8px)" }}
+              className="absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center left-6 md:left-1/2 transform -translate-x-1/2 md:transform md:-translate-x-1/2"
+              style={{ top: "8px" }}
             >
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse-fast"></div>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Education End Image */}
-      <div className="mt-4 relative z-10 w-full flex justify-start md:justify-center">
-        <img
-          src="/assets/educationEnd.png"
-          alt="End of Education Timeline"
-          className="w-16 sm:w-20 md:w-24 h-auto opacity-80"
-        />
       </div>
 
       {/* Modal */}

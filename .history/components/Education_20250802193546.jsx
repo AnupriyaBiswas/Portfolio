@@ -71,25 +71,42 @@ const Education = () => {
         </h2>
       </div>
 
-      {/* Timeline */}
       <div className="relative z-10 w-full max-w-5xl mx-auto py-8 px-2 sm:px-4">
         {/* Central Line */}
-        <div className="absolute left-7 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
+        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
 
         {educationItems.map((item, index) => (
           <div
             key={item.id}
             onClick={() => setSelectedItem(item)}
-            className={`relative flex md:grid md:grid-cols-2 gap-x-6 sm:gap-x-12 cursor-pointer 
-                        ${index === educationItems.length - 1 ? "mb-0" : "mb-12 sm:mb-16"}`}
+            className={`relative flex flex-col sm:flex-row cursor-pointer
+                  ${index === educationItems.length - 1 ? "mb-0" : "mb-12 sm:mb-16"}`}
           >
-            {/* Basic Info */}
+            {/* Year */}
             <div
-              className={`w-full px-2 sm:px-4 max-w-xs sm:max-w-sm md:max-w-full break-words ml-12 md:ml-0
-                ${index % 2 === 1 ? "md:col-start-1 md:text-right" : "md:col-start-2 md:text-left"}`}
-              style={{ marginTop: "30px" }}
+              className={`absolute top-0 z-20 
+          ${index % 2 === 0 ? "left-[calc(50%+1.5rem)] text-left" : "right-[calc(50%+1.5rem)] text-right"}`}
             >
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-orange-400 mb-1">
+              <span className="text-orange-300 text-xs sm:text-sm font-semibold whitespace-nowrap px-2 py-0.5 bg-black/70 rounded">
+                {item.year}
+              </span>
+            </div>
+
+            {/* Dot */}
+            <div
+              className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 sm:w-5 sm:h-5 
+                   rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
+            >
+              <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white animate-pulse"></div>
+            </div>
+
+            {/* Card */}
+            <div
+              className={`relative w-[80%] sm:w-[42%] p-4 sm:p-6 rounded-lg bg-black/40 border border-gray-700 
+                    shadow-lg hover:shadow-orange-500/20 transition-all duration-300 mt-10 sm:mt-0
+                    ${index % 2 === 0 ? "ml-auto sm:ml-[55%]" : "mr-auto sm:mr-[55%]"}`}
+            >
+              <h3 className="text-lg sm:text-xl font-bold text-orange-400 mb-1">
                 {item.degree}
               </h3>
               {item.subject && (
@@ -98,54 +115,8 @@ const Education = () => {
               <p className="text-gray-200 text-sm sm:text-base mb-1">{item.institute}</p>
               <p className="text-gray-400 text-xs sm:text-sm italic">{item.address}</p>
             </div>
-
-            {/* Year */}
-            <div
-              className={`absolute z-15 ${index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
-                } md:block hidden`}
-              style={{ top: "-10px" }}
-            >
-              <span className="text-orange-300 text-[10px] sm:text-xs md:text-sm font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
-                {item.year}
-              </span>
-            </div>
-
-            {/* Mobile Year */}
-            <div
-              className="md:hidden absolute z-15 left-12"
-              style={{ top: "-10px" }}
-            >
-              <span className="text-orange-300 text-[10px] sm:text-xs font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
-                {item.year}
-              </span>
-            </div>
-
-            {/* Mobile Dot */}
-            <div
-              className="md:hidden absolute w-4 h-4 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
-              style={{ left: "21px", transform: "translateX(-50%) translateY(8px)" }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></div>
-            </div>
-
-            {/* Desktop Dot */}
-            <div
-              className="hidden md:flex absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 items-center justify-center"
-              style={{ left: "50%", transform: "translateX(-50%) translateY(8px)" }}
-            >
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse-fast"></div>
-            </div>
           </div>
         ))}
-      </div>
-
-      {/* Education End Image */}
-      <div className="mt-4 relative z-10 w-full flex justify-start md:justify-center">
-        <img
-          src="/assets/educationEnd.png"
-          alt="End of Education Timeline"
-          className="w-16 sm:w-20 md:w-24 h-auto opacity-80"
-        />
       </div>
 
       {/* Modal */}
