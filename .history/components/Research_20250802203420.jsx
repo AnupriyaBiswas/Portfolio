@@ -193,7 +193,7 @@ const Research = () => {
                         item.status === "Published"
                           ? "bg-green-300"
                           : "bg-orange-300"
-                      } animate-pulseFast`}
+                      } animate-pulse-fast`}
                     ></div>
                     <span
                       className={`${
