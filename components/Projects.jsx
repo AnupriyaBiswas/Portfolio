@@ -23,7 +23,12 @@ const projects = [
     link: "https://musical-academy-b3c8.vercel.app/",
     github: "https://github.com/AnupriyaBiswas/MusicalAcademy",
     category: "WebDev",
-    collaborators: [{ name: "Suman Prasad", portfolio: "https://sumanprasad.in" }],
+    collaborators: [
+      {
+        name: "Suman Prasad",
+        portfolio: "https://sumanprasad.in",
+      },
+    ],
   },
   {
     title: "Paul Delta Arc Website",
@@ -33,14 +38,19 @@ const projects = [
     link: "https://www.pauldeltaarc.com/",
     github: "https://github.com/AnupriyaBiswas/PaulDeltaArc",
     category: "WebDev",
-    collaborators: [{ name: "Suman Prasad", portfolio: "https://sumanprasad.in" }],
+    collaborators: [
+      {
+        name: "Suman Prasad",
+        portfolio: "https://sumanprasad.in",
+      },
+    ],
   },
   {
     title: "Stock Price Predictor",
     description: "Predicts stock prices using LSTM networks trained on historical data.",
     image: "/assets/stockMarketPrediction.jpg",
     link: "https://stockpredict.com",
-    github: null, // will trigger alert
+    github: null, // no repo
     category: "AI/ML",
   },
   {
@@ -61,8 +71,7 @@ const projects = [
   },
   {
     title: "Glaucoma Detection",
-    description:
-      "A deep learning tool using U-Net for glaucoma detection from retinal fundus images.",
+    description: "A deep learning tool using U-Net for glaucoma detection from retinal fundus images.",
     image: "/assets/GlaucomaDetection.jpg",
     link: "https://github.com/AnupriyaBiswas/Glaucoma-Detection",
     github: "https://github.com/AnupriyaBiswas/Glaucoma-Detection",
@@ -86,8 +95,8 @@ const ProjectCard = ({ project, activeIndex, index, totalProjects, onClick }) =>
     const desktopTranslateX2 = 240;
     const desktopTranslateXFurther = 80;
 
-    if (absDistance === 0) return "translateX(0) scale(1) rotateY(0deg)";
     let translateXValue;
+    if (absDistance === 0) return "translateX(0) scale(1) rotateY(0deg)";
 
     if (absDistance === 1) {
       translateXValue = distance > 0 ? `${desktopTranslateX1}px` : `${-desktopTranslateX1}px`;
@@ -98,19 +107,19 @@ const ProjectCard = ({ project, activeIndex, index, totalProjects, onClick }) =>
       translateXValue = distance > 0 ? `${desktopFurtherVal}px` : `${-desktopFurtherVal}px`;
     }
 
-    let scale = absDistance === 1 ? 0.85 : absDistance === 2 ? 0.7 : 0.55;
-    let rotateY =
-      absDistance === 1
-        ? distance > 0
-          ? -15
-          : 15
-        : absDistance === 2
-          ? distance > 0
-            ? -25
-            : 25
-          : distance > 0
-            ? -35
-            : 35;
+    let scale = 1;
+    let rotateY = 0;
+
+    if (absDistance === 1) {
+      scale = 0.85;
+      rotateY = distance > 0 ? -15 : 15;
+    } else if (absDistance === 2) {
+      scale = 0.7;
+      rotateY = distance > 0 ? -25 : 25;
+    } else {
+      scale = 0.55;
+      rotateY = distance > 0 ? -35 : 35;
+    }
 
     return `translateX(${translateXValue}) scale(${scale}) rotateY(${rotateY}deg)`;
   };
@@ -122,15 +131,6 @@ const ProjectCard = ({ project, activeIndex, index, totalProjects, onClick }) =>
     if (absDistance === 2) return 0.6;
     if (absDistance > 2 && absDistance <= totalProjects / 2) return 0.3;
     return 0;
-  };
-
-  const handleGitHubClick = (e) => {
-    e.stopPropagation();
-    if (project.github) {
-      window.open(project.github, "_blank");
-    } else {
-      alert("GitHub repository not available for this project.");
-    }
   };
 
   return (
@@ -146,67 +146,70 @@ const ProjectCard = ({ project, activeIndex, index, totalProjects, onClick }) =>
       }}
       onClick={onClick}
     >
-      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl px-4 py-6 
-                w-[260px] md:w-[340px] text-white shadow-2xl 
-                border border-gray-700 hover:border-orange-500 
-                transition-all duration-500 flex flex-col justify-between">
-        <div>
-          <div className="relative overflow-hidden rounded-lg mb-4 group">
-            <Image
-              src={project.image}
-              alt={project.title}
-              width={400}
-              height={200}
-              className="w-full h-36 md:h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            {/* GitHub icon */}
-            <button
-              onClick={handleGitHubClick}
-              className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full"
-            >
-              <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
-            </button>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
-          <h3 className="text-base md:text-lg font-bold mb-1">{project.title}</h3>
-          <p className="text-gray-300 text-xs md:text-sm mb-3 leading-relaxed">
-            {project.description}
-          </p>
-          {project.collaborators && project.collaborators.length > 0 && (
-            <p className="text-gray-400 text-xs mb-3">
-              In collaboration with{" "}
-              {project.collaborators.map((collab, idx) => (
-                <span key={idx}>
-                  <a
-                    href={collab.portfolio}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-orange-400 hover:underline"
-                  >
-                    {collab.name}
-                  </a>
-                  {idx < project.collaborators.length - 1 && ", "}
-                </span>
-              ))}
-            </p>
-          )}
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 w-[260px md:w-[320px] text-white shadow-2xl border border-gray-700 hover:border-orange-500 transition-all duration-500 relative flex flex-col justify-between">
+        <div className="relative overflow-hidden rounded-lg mb-4 group">
+          <Image
+            src={project.image}
+            alt={project.title}
+            width={400}
+            height={200}
+            className="w-full h-36 md:h-40 object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          {/* GitHub icon on image */}
+          <a
+            href={project.github || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!project.github) {
+                e.preventDefault();
+                alert("GitHub repo not available");
+              }
+            }}
+            className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full"
+          >
+            <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
+          </a>
         </div>
+        <h3 className="text-md md:text-lg font-bold mb-2 text-white">{project.title}</h3>
+        <p className="text-gray-300 text-xs md:text-sm mb-4 leading-relaxed line-clamp-3">
+          {project.description}
+        </p>
 
-        {/* Live Demo button aligned left */}
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-orange-600 
-               hover:from-orange-600 hover:to-orange-700 transition-all duration-300 
-               px-3 py-1.5 rounded-full text-white font-medium text-xs md:text-sm shadow-lg 
-               hover:shadow-orange-500/30 self-start"
-        >
-          Live Demo →
-        </a>
+        {project.collaborators && project.collaborators.length > 0 && (
+          <p className="text-gray-400 text-xs mb-3">
+            In collaboration with{" "}
+            {project.collaborators.map((collab, idx) => (
+              <span key={idx}>
+                <a
+                  href={collab.portfolio}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-400 hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {collab.name}
+                </a>
+                {idx < project.collaborators.length - 1 && ", "}
+              </span>
+            ))}
+          </p>
+        )}
+
+        {/* Live Demo Button */}
+        <div className="flex justify-start">
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 transition-all duration-300 px-3 py-1 rounded-full text-white font-medium text-xs md:text-sm shadow-lg hover:shadow-orange-500/30"
+          >
+            Live Demo →
+          </a>
+        </div>
       </div>
-
     </div>
   );
 };
@@ -217,12 +220,13 @@ const ProjectShowcase = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
+  const swipeThreshold = 50;
+
   useEffect(() => {
-    setFilteredProjects(
-      selectedCategory === "All"
-        ? projects
-        : projects.filter((project) => project.category === selectedCategory)
-    );
+    if (selectedCategory === "All") setFilteredProjects(projects);
+    else setFilteredProjects(projects.filter((p) => p.category === selectedCategory));
     setActiveIndex(0);
   }, [selectedCategory]);
 
@@ -242,30 +246,40 @@ const ProjectShowcase = () => {
     setActiveIndex((prev) => (prev + 1) % filteredProjects.length);
   };
 
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setIsAutoPlaying(false);
+  };
+  const handleTouchEnd = (e) => {
+    setTouchEndX(e.changedTouches[0].clientX);
+    const diffX = touchEndX - touchStartX;
+    if (diffX > swipeThreshold) handlePrevious();
+    else if (diffX < -swipeThreshold) handleNext();
+    setIsAutoPlaying(true);
+  };
+
   return (
     <section className="relative pt-20 md:pt-32 min-h-screen overflow-hidden transparent">
       <div className="relative z-10 px-4 md:px-16 mt-0">
-        <h1 className="text-3xl md:text-6xl font-bold leading-tight text-center mb-6">
+        <h1 className="text-4xl md:text-8xl font-bold leading-tight text-center mb-6">
           <span className="text-orange-500">PROJECT </span>
           <span className="text-white">SHOWCASE</span>
         </h1>
 
         {/* Categories */}
-        <div className="flex justify-center mt-4 gap-4 md:gap-10 flex-wrap z-10">
+        <div className="hidden md:flex justify-center mt-4 gap-10 flex-wrap z-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`relative px-3 py-1 text-sm md:text-xl font-semibold transition-all duration-300 group ${selectedCategory === cat
-                  ? "text-orange-500"
-                  : "text-gray-400 hover:text-orange-300"
+              className={`relative px-4 py-2 text-xl font-semibold transition-all duration-300 group ${selectedCategory === cat
+                ? "text-orange-500"
+                : "text-gray-400 hover:text-orange-300"
                 }`}
             >
               {cat}
               <span
-                className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transition-transform duration-300 origin-center ${selectedCategory === cat
-                    ? "scale-x-100"
-                    : "scale-x-0 group-hover:scale-x-50"
+                className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transition-transform duration-300 origin-center ${selectedCategory === cat ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"
                   }`}
               ></span>
             </button>
@@ -276,16 +290,18 @@ const ProjectShowcase = () => {
       {/* Carousel */}
       <div className="relative w-full mt-6 md:mt-10 px-4 z-10">
         <div
-          className="relative h-[380px] md:h-[500px] max-w-full md:max-w-7xl mx-auto flex items-center justify-between"
+          className="relative h-[400px] md:h-[550px] max-w-full md:max-w-7xl mx-auto flex items-center justify-between"
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           style={{ perspective: "1200px" }}
         >
           <button
             onClick={handlePrevious}
             className="hidden md:block z-50 text-white hover:text-orange-500 transition-all duration-300"
           >
-            <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" />
+            <ChevronLeft className="w-10 h-10" />
           </button>
 
           <div className="relative flex justify-center items-center h-full w-full">
@@ -305,19 +321,19 @@ const ProjectShowcase = () => {
             onClick={handleNext}
             className="hidden md:block z-50 text-white hover:text-orange-500 transition-all duration-300"
           >
-            <ChevronRight className="w-8 h-8 md:w-10 md:h-10" />
+            <ChevronRight className="w-10 h-10" />
           </button>
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center mt-6 md:mt-12 gap-2 md:gap-3 z-10">
+        <div className="flex justify-center mt-8 md:mt-12 gap-3 z-10">
           {filteredProjects.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
               className={`transition-all duration-500 rounded-full ${index === activeIndex
-                  ? "w-5 h-2 md:w-6 md:h-3 bg-orange-500"
-                  : "w-2 h-2 md:w-3 md:h-3 bg-gray-600 hover:bg-gray-400"
+                ? "w-6 h-2 md:w-8 md:h-3 bg-orange-500"
+                : "w-2 h-2 md:w-3 md:h-3 bg-gray-600 hover:bg-gray-400"
                 }`}
             />
           ))}
