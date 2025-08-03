@@ -65,13 +65,14 @@ const Hero = () => {
           </span>
         </h1>
 
-        <p className="text-gray-400 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
+        <p className="text-gray-400 text-base sm:text-lg md:text-xl mb-8 max-w-sm sm:max-w-md md:max-w-2xl leading-relaxed break-words">
           Hello, I&apos;m{" "}
           <span className="text-orange-400 font-bold">Anupriya Biswas</span>, a Student of Computer Science
           Engineering. I have worked as a Front-end Developer. I&apos;m
           passionate about Deep Learning Solutions to real-world Problems.
           Welcome to my World!
         </p>
+
 
         <button
           onClick={() => window.open("/assets/Resume.pdf", "_blank")}
