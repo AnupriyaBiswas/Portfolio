@@ -267,24 +267,28 @@ const ProjectShowcase = () => {
         </h1>
 
         {/* Categories */}
-        <div className="hidden md:flex justify-center mt-4 gap-10 flex-wrap z-10">
+        {/* Categories Navbar - Visible on all screens */}
+        <div className="flex justify-center mt-4 gap-6 overflow-x-auto scrollbar-hide px-2 z-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`relative px-4 py-2 text-xl font-semibold transition-all duration-300 group ${selectedCategory === cat
-                ? "text-orange-500"
-                : "text-gray-400 hover:text-orange-300"
+              className={`relative px-3 py-1 text-sm md:text-lg font-semibold transition-all duration-300 whitespace-nowrap group ${selectedCategory === cat
+                  ? "text-orange-500"
+                  : "text-gray-400 hover:text-orange-300"
                 }`}
             >
               {cat}
               <span
-                className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transition-transform duration-300 origin-center ${selectedCategory === cat ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"
+                className={`absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transition-transform duration-300 origin-center ${selectedCategory === cat
+                    ? "scale-x-100"
+                    : "scale-x-0 group-hover:scale-x-50"
                   }`}
               ></span>
             </button>
           ))}
         </div>
+
       </div>
 
       {/* Carousel */}
