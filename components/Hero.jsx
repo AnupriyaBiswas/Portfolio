@@ -98,21 +98,6 @@ const Hero = () => {
       <div className="absolute top-20 right-20 w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
       <div className="absolute bottom-32 left-32 w-1 h-1 bg-white rounded-full animate-pulse"></div>
       <div className="absolute top-1/3 left-1/4 w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div>
-
-      {/* ✅ Correct style block (no jsx="true") */}
-      <style jsx>{`
-        .blinking-cursor {
-          font-weight: 100;
-          font-size: 2rem;
-          color: orange;
-          animation: blink 1s infinite;
-        }
-        @keyframes blink {
-          0% { opacity: 1; }
-          50% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-      `}</style>
     </section>
   );
 };
