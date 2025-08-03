@@ -94,25 +94,24 @@ const Research = () => {
         </div>
 
         {/* Research Cards */}
-        <div className="w-full md:w-[70%] px-4 flex flex-col justify-between h-full max-h-[calc(100vh-250px)] md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-150px)]">
+        <div className="w-full md:w-[70%] px-4 flex flex-col justify-between h-auto md:h-full md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-150px)] overflow-y-auto md:overflow-visible">
           {researchItems.map((item, index) => (
             <div
               key={index}
               className={`group relative my-2 p-4 md:p-5 rounded-lg overflow-hidden
-                bg-gradient-to-r from-gray-900/80 via-gray-900/70 to-transparent
-                border border-gray-700/70
-                transition-all duration-500 cursor-pointer
-                shadow-lg hover:shadow-xl hover:shadow-orange-500/40
-                opacity-100 scale-100
-                md:opacity-80 md:scale-95
-                md:hover:border-orange-600/80
-                md:hover:-translate-y-1
-                md:hover:scale-100
-                md:hover:shadow-orange-500/25
-                ${
-                  currentSpotlightIndex === index
-                    ? "md:opacity-100 md:scale-100 md:translate-y-0 animate-subtleGlowPulse"
-                    : ""
+        bg-gradient-to-r from-gray-900/80 via-gray-900/70 to-transparent
+        border border-gray-700/70
+        transition-all duration-500 cursor-pointer
+        shadow-lg hover:shadow-xl hover:shadow-orange-500/40
+        opacity-100 scale-100
+        md:opacity-80 md:scale-95
+        md:hover:border-orange-600/80
+        md:hover:-translate-y-1
+        md:hover:scale-100
+        md:hover:shadow-orange-500/25
+        ${currentSpotlightIndex === index
+                  ? "md:opacity-100 md:scale-100 md:translate-y-0 animate-subtleGlowPulse"
+                  : ""
                 }`}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
@@ -132,9 +131,9 @@ const Research = () => {
               {/* Content */}
               <div className="relative z-10 pl-16 md:pl-20">
                 <div className="flex justify-between items-center mb-1">
-                  <h3 className="text-lg md:text-xl font-bold text-white group-hover:text-orange-50 transition-colors duration-300 leading-tight">
+                  <h2 className="text-lg md:text-xl font-bold text-orange-500 group-hover:text-orange-400 transition-colors duration-300 leading-tight">
                     {item.title}
-                  </h3>
+                  </h2>
                   {item.github && (
                     <a
                       href={item.github}
@@ -159,7 +158,7 @@ const Research = () => {
                   )}
                 </div>
 
-                <p className="text-gray-100 mb-2 text-sm leading-relaxed line-clamp-2">
+                <p className="text-gray-100 mb-2 text-sm leading-relaxed">
                   {item.summary}
                 </p>
 
@@ -188,20 +187,16 @@ const Research = () => {
 
                   <div className="flex items-center space-x-1 text-xs">
                     <div
-                      className={`w-2 h-2 rounded-full ${
-                        item.status === "Completed" ||
-                        item.status === "Published"
-                          ? "bg-green-300"
-                          : "bg-orange-300"
-                      } animate-pulseFast`}
+                      className={`w-2 h-2 rounded-full ${item.status === "Completed" || item.status === "Published"
+                        ? "bg-green-300"
+                        : "bg-orange-300"
+                        } animate-pulseFast`}
                     ></div>
                     <span
-                      className={`${
-                        item.status === "Completed" ||
-                        item.status === "Published"
-                          ? "text-green-200"
-                          : "text-orange-200"
-                      } font-medium`}
+                      className={`${item.status === "Completed" || item.status === "Published"
+                        ? "text-green-200"
+                        : "text-orange-200"
+                        } font-medium`}
                     >
                       {item.status}
                     </span>
@@ -211,6 +206,7 @@ const Research = () => {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

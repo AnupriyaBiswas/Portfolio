@@ -47,11 +47,32 @@ module.exports = {
           },
         },
         pulseFast: {
-          "0%, 100%": {
-            opacity: "1",
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.4" },
+        },
+        twinkle: {
+          "0%, 100%": { opacity: "0.3", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.2)" },
+        },
+        sparkle: {
+          "0%, 100%": { opacity: "0.2", transform: "scale(0.8) rotate(0deg)" },
+          "50%": { opacity: "1", transform: "scale(1.2) rotate(180deg)" },
+        },
+        fall: {
+          "0%": { transform: "translateY(-100vh) translateX(0)", opacity: "0" },
+          "10%, 90%": { opacity: "1" },
+          "100%": {
+            transform: "translateY(100vh) translateX(-30px)",
+            opacity: "0",
           },
-          "50%": {
-            opacity: "0.4",
+        },
+        shootingStarMove: {
+          "0%": { transform: "translate(0, 0)", opacity: "0" },
+          "5%": { opacity: "1" },
+          "95%": { opacity: "0.8" },
+          "100%": {
+            transform: "translate(var(--end-x), var(--end-y))",
+            opacity: "0",
           },
         },
       },
@@ -60,11 +81,15 @@ module.exports = {
         subtleGlowPulse: "subtleGlowPulse 2s infinite ease-in-out",
         highlightStream: "highlightStream 1.5s ease-out infinite alternate",
         pulseFast: "pulseFast 1.5s ease-in-out infinite",
+        twinkle: "twinkle 6s infinite ease-in-out",
+        sparkle: "sparkle 8s infinite ease-in-out",
+        fall: "fall 20s linear infinite",
+        shootingStarMove: "shootingStarMove 5s ease-out forwards",
       },
     },
   },
   plugins: [
-    require('@tailwindcss/line-clamp'), // for clamping text in Research cards
-    require('@tailwindcss/aspect-ratio'), // safe responsive images
+    require("@tailwindcss/line-clamp"), // for clamping text in Research cards
+    require("@tailwindcss/aspect-ratio"), // safe responsive images
   ],
 };
