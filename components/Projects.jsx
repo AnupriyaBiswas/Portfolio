@@ -9,7 +9,7 @@ const projects = [
     title: "Portfolio Website",
     description:
       "A responsive developer portfolio built using Next.js and Tailwind CSS.",
-    image: "/assets/portfolio.jpg",
+    image: "/assets/Portfolio.jpg",
     link: "https://yourportfolio.com",
     category: "WebDev",
   },
@@ -31,7 +31,7 @@ const projects = [
     title: "Paul Delta Arc Website",
     description:
       "A  modern, responsive Official Business site built for an MEP Business.",
-    image: "/assets/paulDeltaArc.jpg",
+    image: "/assets/PaulDeltaArc.jpg",
     link: "https://www.pauldeltaarc.com/",
     category: "WebDev",
     collaborators: [
