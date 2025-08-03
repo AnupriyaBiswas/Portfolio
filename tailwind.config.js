@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -25,26 +26,45 @@ module.exports = {
           "100%": { transform: "translateY(-100vh) rotate(0deg)" },
         },
         subtleGlowPulse: {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(249,115,22,0.8)" },
-          "50%": { boxShadow: "0 0 40px rgba(249,115,22,1)" },
+          "0%, 100%": {
+            boxShadow: "0 0 20px rgba(249, 115, 22, 0.8)",
+          },
+          "50%": {
+            boxShadow: "0 0 40px rgba(249, 115, 22, 1)",
+          },
         },
         highlightStream: {
-          "0%": { transform: "translateX(-100%)", opacity: "0" },
-          "50%": { opacity: "0.5" },
-          "100%": { transform: "translateX(0%)", opacity: "0" },
+          "0%": {
+            transform: "translateX(-100%)",
+            opacity: "0",
+          },
+          "50%": {
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+            opacity: "0",
+          },
         },
-        "pulse-fast": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.4" },
+        pulseFast: {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.4",
+          },
         },
       },
       animation: {
         floatUp: "floatUp 30s ease-in-out infinite",
-        subtleGlowPulse: "subtleGlowPulse 2s ease-in-out infinite",
+        subtleGlowPulse: "subtleGlowPulse 2s infinite ease-in-out",
         highlightStream: "highlightStream 1.5s ease-out infinite alternate",
-        "pulse-fast": "pulse-fast 1.2s ease-in-out infinite",
+        pulseFast: "pulseFast 1.5s ease-in-out infinite",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'), // for clamping text in Research cards
+    require('@tailwindcss/aspect-ratio'), // safe responsive images
+  ],
 };

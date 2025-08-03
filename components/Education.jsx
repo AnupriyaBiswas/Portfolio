@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 const educationItems = [
   {
@@ -73,7 +74,6 @@ const Education = () => {
 
       {/* Timeline */}
       <div className="relative z-10 w-full max-w-5xl mx-auto py-8 px-2 sm:px-4">
-        {/* Central Line */}
         <div className="absolute left-7 md:left-1/2 md:transform md:-translate-x-1/2 h-full w-0.5 bg-gray-700 rounded-full z-0"></div>
 
         {educationItems.map((item, index) => (
@@ -81,9 +81,8 @@ const Education = () => {
             key={item.id}
             onClick={() => setSelectedItem(item)}
             className={`relative flex md:grid md:grid-cols-2 gap-x-6 sm:gap-x-12 cursor-pointer 
-                        ${index === educationItems.length - 1 ? "mb-0" : "mb-12 sm:mb-16"}`}
+              ${index === educationItems.length - 1 ? "mb-0" : "mb-12 sm:mb-16"}`}
           >
-            {/* Basic Info */}
             <div
               className={`w-full px-2 sm:px-4 max-w-xs sm:max-w-sm md:max-w-full break-words ml-12 md:ml-0
                 ${index % 2 === 1 ? "md:col-start-1 md:text-right" : "md:col-start-2 md:text-left"}`}
@@ -99,10 +98,10 @@ const Education = () => {
               <p className="text-gray-400 text-xs sm:text-sm italic">{item.address}</p>
             </div>
 
-            {/* Year */}
+            {/* Year Desktop */}
             <div
-              className={`absolute z-15 ${index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"
-                } md:block hidden`}
+              className={`absolute z-15 ${index % 2 === 0 ? "right-1/2 mr-1 sm:mr-4 text-right" : "left-1/2 ml-1 sm:ml-4 text-left"}
+                md:block hidden`}
               style={{ top: "-10px" }}
             >
               <span className="text-orange-300 text-[10px] sm:text-xs md:text-sm font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
@@ -110,11 +109,8 @@ const Education = () => {
               </span>
             </div>
 
-            {/* Mobile Year */}
-            <div
-              className="md:hidden absolute z-15 left-12"
-              style={{ top: "-10px" }}
-            >
+            {/* Year Mobile */}
+            <div className="md:hidden absolute z-15 left-12" style={{ top: "-10px" }}>
               <span className="text-orange-300 text-[10px] sm:text-xs font-semibold whitespace-nowrap px-1 py-0.5 bg-black/70 rounded">
                 {item.year}
               </span>
@@ -125,7 +121,7 @@ const Education = () => {
               className="md:hidden absolute w-4 h-4 rounded-full bg-orange-500 border-2 border-orange-300 z-10 flex items-center justify-center"
               style={{ left: "21px", transform: "translateX(-50%) translateY(8px)" }}
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-fast"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulseFast"></div>
             </div>
 
             {/* Desktop Dot */}
@@ -133,7 +129,7 @@ const Education = () => {
               className="hidden md:flex absolute w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-orange-500 border-2 border-orange-300 z-10 items-center justify-center"
               style={{ left: "50%", transform: "translateX(-50%) translateY(8px)" }}
             >
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulse-fast"></div>
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white animate-pulseFast"></div>
             </div>
           </div>
         ))}
@@ -141,9 +137,11 @@ const Education = () => {
 
       {/* Education End Image */}
       <div className="mt-4 relative z-10 w-full flex justify-start md:justify-center">
-        <img
+        <Image
           src="/assets/educationEnd.png"
           alt="End of Education Timeline"
+          width={96}
+          height={96}
           className="w-16 sm:w-20 md:w-24 h-auto opacity-80"
         />
       </div>
@@ -158,16 +156,16 @@ const Education = () => {
             className="relative bg-gray-900 rounded-xl p-6 sm:p-8 shadow-2xl border-2 border-orange-500 max-w-lg w-full mx-4"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Floating Logo */}
             <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-              <img
+              <Image
                 src={selectedItem.logo}
                 alt={selectedItem.institute}
+                width={96}
+                height={96}
                 className="w-24 h-24 object-contain drop-shadow-lg"
               />
             </div>
 
-            {/* Close Button */}
             <button
               className="absolute top-3 right-3 text-gray-400 hover:text-white text-3xl"
               onClick={closeModal}
@@ -175,26 +173,21 @@ const Education = () => {
               &times;
             </button>
 
-            {/* Content */}
             <div className="mt-12 text-center">
               <h3 className="text-2xl font-bold text-orange-400 mb-2">{selectedItem.degree}</h3>
               <p className="text-lg text-gray-200 mb-1">{selectedItem.institute}</p>
               <p className="text-sm italic text-gray-400 mb-4">{selectedItem.address}</p>
+              <p className="text-gray-300 text-sm leading-relaxed mb-4">{selectedItem.note}</p>
 
-              {/* Note */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                {selectedItem.note}
-              </p>
-
-              {/* Academic Details */}
               {selectedItem.details.CGPA && (
                 <p className="text-gray-200 text-base mb-2">
-                  <span className="font-semibold">Graduated with a CGPA of </span> {selectedItem.details.CGPA}
+                  <span className="font-semibold">Graduated with a CGPA of </span>
+                  {selectedItem.details.CGPA}
                 </p>
               )}
               {selectedItem.details.Percentage && (
                 <p className="text-gray-200 text-base mb-2">
-                  <span className="font-semibold">Passed with a Percentage of</span>{" "}
+                  <span className="font-semibold">Passed with a Percentage of </span>
                   {selectedItem.details.Percentage}
                 </p>
               )}

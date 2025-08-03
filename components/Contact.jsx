@@ -1,5 +1,6 @@
 import React from "react";
-import { Mail, Linkedin, Github, Globe } from "lucide-react"; // Make sure lucide-react is installed: npm install lucide-react
+import Image from "next/image";
+import { Mail, Linkedin, Github, Globe } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -8,12 +9,15 @@ const Contact = () => {
       className="min-h-screen flex flex-col transparent text-white relative overflow-hidden"
     >
       {/* Contact Page Background Image (Right Side) */}
-      <img
-        src="assets/contact.png" // Path to your contact image
-        alt="Contact Page Background Graphic"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full object-contain opacity-70 z-5"
-        style={{ maxWidth: "40%" }}
-      />
+      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 h-full opacity-70 z-5" style={{ maxWidth: "40%" }}>
+        <Image
+          src="/assets/contact.png"
+          alt="Contact Page Background Graphic"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
 
       {/* Main Contact Content */}
       <div className="flex flex-col justify-center items-center flex-grow px-4 md:px-20 py-20 z-10 text-center">
@@ -33,10 +37,7 @@ const Contact = () => {
             className="flex flex-col items-center group text-gray-400 hover:text-orange-400 transition-colors duration-300"
             aria-label="Email"
           >
-            <Mail
-              size={36}
-              className="mb-2 group-hover:scale-110 transition-transform duration-300"
-            />
+            <Mail size={36} className="mb-2 group-hover:scale-110 transition-transform duration-300" />
             <span className="text-sm md:text-base">Email</span>
           </a>
 
@@ -48,10 +49,7 @@ const Contact = () => {
             className="flex flex-col items-center group text-gray-400 hover:text-orange-400 transition-colors duration-300"
             aria-label="LinkedIn"
           >
-            <Linkedin
-              size={36}
-              className="mb-2 group-hover:scale-110 transition-transform duration-300"
-            />
+            <Linkedin size={36} className="mb-2 group-hover:scale-110 transition-transform duration-300" />
             <span className="text-sm md:text-base">LinkedIn</span>
           </a>
 
@@ -63,10 +61,7 @@ const Contact = () => {
             className="flex flex-col items-center group text-gray-400 hover:text-orange-400 transition-colors duration-300"
             aria-label="GitHub"
           >
-            <Github
-              size={36}
-              className="mb-2 group-hover:scale-110 transition-transform duration-300"
-            />
+            <Github size={36} className="mb-2 group-hover:scale-110 transition-transform duration-300" />
             <span className="text-sm md:text-base">GitHub</span>
           </a>
 
@@ -78,10 +73,7 @@ const Contact = () => {
             className="flex flex-col items-center group text-gray-400 hover:text-orange-400 transition-colors duration-300"
             aria-label="Medium"
           >
-            <Globe
-              size={36}
-              className="mb-2 group-hover:scale-110 transition-transform duration-300"
-            />
+            <Globe size={36} className="mb-2 group-hover:scale-110 transition-transform duration-300" />
             <span className="text-sm md:text-base">Medium</span>
           </a>
         </div>
