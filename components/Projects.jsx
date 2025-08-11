@@ -69,6 +69,14 @@ const projects = [
     link: "https://github.com/AnupriyaBiswas/Glaucoma-Detection",
     category: "AI/ML",
   },
+  {
+    title: "Tu-Dum (A Task-Tracker)",
+    description: "A Web-App to Track Upcoming Tasks and Manage Time more Efficiently.",
+    image: "/assets/TuDum.jpg",
+    link: "https://github.com/AnupriyaBiswas/Task-Tracker",
+    category: "WebDev",
+  },
+
 ];
 
 const ProjectCard = ({ project, activeIndex, index, totalProjects, onClick }) => {
@@ -313,7 +321,6 @@ const ProjectShowcase = () => {
           </div>
         </div>
 
-        {/* Carousel */}
         {/* Carousel */}
         <div className="relative w-full mt-8 md:mt-6 px-2 sm:px-4 z-10">
           <div
