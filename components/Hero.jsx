@@ -41,14 +41,14 @@ const Hero = () => {
       id="hero"
       className="min-h-screen flex items-center justify-between px-4 md:px-16 transparent text-white relative overflow-hidden"
     >
-      {/* Hamburger Menu */}
+      {/* Hamburger Menu
       <div className="absolute top-6 right-6 z-50">
         <button className="flex flex-col space-y-1 cursor-pointer">
           <div className="w-6 h-0.5 bg-white"></div>
           <div className="w-6 h-0.5 bg-white"></div>
           <div className="w-6 h-0.5 bg-white"></div>
         </button>
-      </div>
+      </div> */}
 
       {/* Left Side - Main Content */}
       <div className="flex-1 max-w-3xl z-10">
