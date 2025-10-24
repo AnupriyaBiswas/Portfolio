@@ -6,23 +6,23 @@ const researchItems = [
     title: "Human Activity Recognition",
     summary:
       "Deep learning for improved Activity Recognition of Suspicious Activities on GPU and Jetson Orin Nano.",
-    link: "https://example.com/research/neural-interfaces",
+    link: "/public/assets/Manuscripts/HAR",
     github: "https://github.com/your-username/neural-interfaces",
     status: "Under Review",
   },
   {
-    title: "Gait Analysis",
+    title: "Gait-Energy Expenditure Prediction",
     summary:
-      "EMG/IMU data fusion for Parkinson's disease gait pattern differentiation.",
-    link: "https://example.com/research/gait-analysis",
+      "EMG/IMU data fusion for Gait Strain Classification.",
+    link: "/public/assets/Manuscripts/IMUEMG",
     github: "https://github.com/your-username/gait-analysis",
-    status: "In Progress",
+    status: "Under Review",
   },
   {
     title: "Stock Market Trend Prediction",
     summary:
       "Predicting the Trend of Influential Stocks for better Decision-making in Trading.",
-    link: "https://example.com/research/quantum-comm",
+    link: "/public/assets/Manuscripts/StockMarket",
     github: "https://github.com/your-username/quantum-comm",
     status: "Completed",
   },
@@ -169,7 +169,7 @@ const Research = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-4 py-1.5 bg-orange-500 text-white font-semibold rounded-full text-xs hover:bg-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30"
                   >
-                    Live Demo
+                    Quick Peek
                     <svg
                       className="w-3 h-3 ml-1"
                       fill="none"
