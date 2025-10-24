@@ -6,7 +6,7 @@ const researchItems = [
     title: "Human Activity Recognition",
     summary:
       "Deep learning for improved Activity Recognition of Suspicious Activities on GPU and Jetson Orin Nano.",
-    link: "/public/assets/Manuscripts/HAR",
+    link: "/public/assets/Manuscript/HAR.pdf",
     github: "https://github.com/your-username/neural-interfaces",
     status: "Under Review",
   },
@@ -14,7 +14,7 @@ const researchItems = [
     title: "Gait-Energy Expenditure Prediction",
     summary:
       "EMG/IMU data fusion for Gait Strain Classification.",
-    link: "/public/assets/Manuscripts/IMUEMG",
+    link: "/public/assets/Manuscript/IMUEMG.pdf",
     github: "https://github.com/your-username/gait-analysis",
     status: "Under Review",
   },
@@ -22,7 +22,7 @@ const researchItems = [
     title: "Stock Market Trend Prediction",
     summary:
       "Predicting the Trend of Influential Stocks for better Decision-making in Trading.",
-    link: "/public/assets/Manuscripts/StockMarket",
+    link: "/public/assets/Manuscript/StockMarket.pdf",
     github: "https://github.com/your-username/quantum-comm",
     status: "Completed",
   },
