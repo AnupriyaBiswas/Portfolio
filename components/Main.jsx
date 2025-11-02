@@ -5,6 +5,7 @@ import Skills from "./Skills";
 import Projects from "./Projects";
 import Research from "./Research";
 import Education from "./Education";
+import Experience from "./Experience";
 import Contact from "./Contact";
 import Background from "./Background";
 
@@ -21,6 +22,7 @@ const Main = () => {
       <Projects />
       <Research />
       <Education />
+      <Experience />
       <Contact />
     </main>
   );

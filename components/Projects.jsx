@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
-const categories = ["All", "WebDev", "AI/ML", "Desktop"];
+const categories = ["All", "AI/ML", "Full-Stack", "WebDev", "Miscellaneous"];
 
 const projects = [
   {
-    title: "Portfolio Website",
+    title: "My Portfolio",
     description:
       "A responsive developer portfolio built using Next.js and Tailwind CSS.",
-    image: "/assets/Portfolio.jpg",
-    link: "https://yourportfolio.com",
+    image: "/assets/projects/Portfolio.jpg",
+    link: "https://anupriya-biswas.vercel.app",
     category: "WebDev",
   },
   {
     title: "Musical Academy",
     description:
       "Interactive platform to manage and explore music learning resources.",
-    image: "/assets/musicalAcademy.jpg",
+    image: "/assets/projects/musicalAcademy.jpg",
     link: "https://musical-academy-b3c8.vercel.app/",
     category: "WebDev",
     collaborators: [
@@ -31,7 +31,7 @@ const projects = [
     title: "Paul Delta Arc Website",
     description:
       "A  modern, responsive Official Business site built for an MEP Business.",
-    image: "/assets/PaulDeltaArc.jpg",
+    image: "/assets/projects/PaulDeltaArc.jpg",
     link: "https://www.pauldeltaarc.com/",
     category: "WebDev",
     collaborators: [
@@ -41,42 +41,48 @@ const projects = [
       },
     ],
   },
-  {
-    title: "Stock Price Predictor",
-    description: "Predicts stock prices using LSTM networks trained on historical data.",
-    image: "/assets/stockMarketPrediction.jpg",
-    link: "https://stockpredict.com",
-    category: "AI/ML",
-  },
+  // {
+  //   title: "Stock Price Predictor",
+  //   description: "Predicts stock prices using LSTM networks trained on historical data.",
+  //   image: "/assets/projects/stockMarketPrediction.jpg",
+  //   link: "https://stockpredict.com",
+  //   category: "AI/ML",
+  // },
   {
     title: "Hate Speech Recognition",
     description: "A machine learning model that detects and classifies hate speech in text.",
-    image: "/assets/hateSpeechRecognition.jpg",
+    image: "/assets/projects/hateSpeechRecognition.jpg",
     link: "https://github.com/AnupriyaBiswas/Hate-Speech-Recognition",
     category: "AI/ML",
   },
   {
     title: "Flat File System",
     description: "A lightweight file system built for efficient storage and quick access.",
-    image: "/assets/flatFileSystem.jpg",
+    image: "/assets/projects/flatFileSystem.jpg",
     link: "https://github.com/AnupriyaBiswas/Flat-File-System",
-    category: "Desktop",
+    category: "Miscellaneous",
   },
   {
     title: "Glaucoma Detection",
     description: "A deep learning tool using U-Net for glaucoma detection from retinal fundus images.",
-    image: "/assets/GlaucomaDetection.jpg",
+    image: "/assets/projects/GlaucomaDetection.jpg",
     link: "https://github.com/AnupriyaBiswas/Glaucoma-Detection",
     category: "AI/ML",
   },
   {
     title: "Tu-Dum (A Task-Tracker)",
     description: "A Web-App to Track Upcoming Tasks and Manage Time more Efficiently.",
-    image: "/assets/TuDum.jpg",
-    link: "https://github.com/AnupriyaBiswas/Task-Tracker",
+    image: "/assets/projects/TuDum.jpg",
+    link: "https://tudum-ivory.vercel.app/",
     category: "WebDev",
   },
-
+  {
+    title: "CPU-Scheduling Visualizer",
+    description: "A Web-based Tool to Visualize the most Popular CPU-Scheduling Algorithms and Comparing their Performances.",
+    image: "/assets/projects/Schedulers.png",
+    link: "https://cpu-schedulers.onrender.com",
+    category: "Full-Stack"
+  },
 ];
 
 const ProjectCard = ({ project, activeIndex, index, totalProjects, onClick }) => {

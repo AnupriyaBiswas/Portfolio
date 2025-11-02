@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 // keep roles outside so useEffect dependencies are stable
-const roles = ["AI/ML Developer", "Software Developer", "Front-End Developer"];
+const roles = ["AI/ML Developer", "Software Developer"];
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState("");
