@@ -78,7 +78,7 @@ const projects = [
   },
   {
     title: "CPU-Scheduling Visualizer",
-    description: "A Web-based Tool to Visualize the most Popular CPU-Scheduling Algorithms and Comparing their Performances.",
+    description: "A Web-based Tool to Visualize and Compare the most Popular CPU-Scheduling Algorithms.",
     image: "/assets/projects/Schedulers.png",
     link: "https://cpu-schedulers.onrender.com",
     category: "Full-Stack"
