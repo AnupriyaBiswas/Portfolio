@@ -58,9 +58,8 @@ const CustomCursor = () => {
     <div
       className="fixed top-0 left-0 w-7 h-7 pointer-events-none z-[9999]"
       style={{
-        // Position the tip of the rocket at the mouse cursor
-        // Assuming rocket points upward, tip would be at top-center
-        transform: `translate3d(${position.x - 40}px, ${position.y - 10}px, 0)`,
+        // Position the top-left corner of the image at the mouse cursor
+        transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
         opacity: isVisible ? 1 : 0,
         willChange: 'transform',
       }}
