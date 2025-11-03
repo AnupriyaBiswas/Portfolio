@@ -5,8 +5,8 @@ import CustomCursor from "../components/CustomCursor.jsx";
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <Component {...pageProps} />;
-      <CustomCursor />;
+      <Component {...pageProps} />
+      <CustomCursor />
     </>
   )
 }
