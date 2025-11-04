@@ -74,8 +74,8 @@ const Experience = () => {
                     <Image
                       src="/assets/hammock.png"
                       alt="Hammock"
-                      width={180}
-                      height={120}
+                      width={360}
+                      height={240}
                       className="w-45 h-auto object-contain opacity-60"
                     />
                   </div>
