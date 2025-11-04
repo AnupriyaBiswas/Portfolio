@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -44,10 +45,13 @@ const About = () => {
           {/* Image */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              <img
+              <Image
                 src="/assets/about.jpg"
                 alt="About me"
+                width={320}
+                height={320}
                 className="w-80 h-80 lg:w-100 lg:h-100 object-cover rounded-lg shadow-2xl"
+                priority
               />
             </div>
           </div>

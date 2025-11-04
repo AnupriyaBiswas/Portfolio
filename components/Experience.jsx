@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const Experience = () => {
   const experiences = [
@@ -9,7 +10,8 @@ const Experience = () => {
       location: "Mumbai, Maharashtra",
       responsibilities: [
         "Developed and customized WordPress plugins to enhance client-specific functionality.",
-        "Worked on both front-end and back-end tasks using JavaScript, HTML, and CSS.","Gained hands-on experience with WordPress architecture, hooks, and plugin lifecycle.",
+        "Worked on both front-end and back-end tasks using JavaScript, HTML, and CSS.",
+        "Gained hands-on experience with WordPress architecture, hooks, and plugin lifecycle.",
         "Collaborated with senior developers in an Agile environment to deliver timely updates and feature rollouts."
       ]
     }
@@ -21,7 +23,6 @@ const Experience = () => {
       className="min-h-screen flex flex-col justify-center items-center px-4 md:px-20 py-20 transparent text-white relative overflow-hidden"
     >
       <div className="relative z-10 max-w-6xl w-full">
-        {/* Heading */}
         {/* Heading */}
         <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-16 text-left">
           <span className="text-orange-500">WORK</span>{" "}
@@ -47,9 +48,11 @@ const Experience = () => {
 
                     {/* Company Logo and Name */}
                     <div className="flex items-center gap-4 mb-4">
-                      <img
+                      <Image
                         src="/assets/Wisdmlabs.png"
                         alt="Wisdmlabs Logo"
+                        width={40}
+                        height={40}
                         className="w-10 h-10 object-contain rounded-lg"
                       />
                       <h3 className="text-4xl font-bold text-white">
@@ -68,9 +71,11 @@ const Experience = () => {
 
                   {/* Hammock Image - aligned to bottom */}
                   <div className="hidden lg:flex justify-center items-end flex-grow">
-                    <img
+                    <Image
                       src="/assets/hammock.png"
                       alt="Hammock"
+                      width={180}
+                      height={120}
                       className="w-45 h-auto object-contain opacity-60"
                     />
                   </div>

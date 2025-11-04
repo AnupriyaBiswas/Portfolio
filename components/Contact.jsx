@@ -181,8 +181,8 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* CSS Animations */}
-      <style jsx>{`
+      {/* Global Styles */}
+      <style jsx global>{`
         @keyframes ufoSway {
           0% {
             transform: translateX(-50%) rotate(-2deg) translateX(-15px);

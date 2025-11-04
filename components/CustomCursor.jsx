@@ -1,5 +1,6 @@
 // components/CustomCursor.jsx
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -64,11 +65,15 @@ const CustomCursor = () => {
         willChange: 'transform',
       }}
     >
-      <img
+      <Image
         src="/assets/Cursor.png"
         alt="Custom cursor"
+        width={28}
+        height={28}
         className="w-full h-full object-contain"
         draggable={false}
+        priority
+        unoptimized
       />
     </div>
   );
