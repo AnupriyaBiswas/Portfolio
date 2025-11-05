@@ -10,7 +10,7 @@ const Contact = () => {
     >
       {/* Container for UFO and Light - they move together */}
       <div 
-        className="absolute top-8 left-1/2 z-20 pointer-events-none"
+        className="absolute top-8 left-1/2 z-20"
         style={{
           transform: 'translateX(-50%)',
           animation: 'ufoSway 4s ease-in-out infinite alternate'
@@ -77,7 +77,7 @@ const Contact = () => {
           }}
         />
         
-        {/* Secondary glow layer */}
+        {/* Secondary glow layer - also attached */}
         <div 
           className="absolute opacity-30"
           style={{
@@ -106,8 +106,8 @@ const Contact = () => {
         />
       </div>
 
-      {/* Contact Page Background Image (Right Side for desktop/tablet) */}
-      <div className="absolute right-0 top-0 h-full w-1/3 md:w-2/5 z-10 hidden md:block">
+      {/* Contact Page Background Image (Right Side) */}
+      <div className="absolute right-0 top-0 h-full w-1/3 md:w-2/5 z-5">
         <Image
           src="/assets/contact.png"
           alt="Contact Page Background Graphic"
@@ -117,22 +117,11 @@ const Contact = () => {
         />
       </div>
 
-      {/* Alternate Image for Small Screens (Bottom full width) */}
-      <div className="absolute bottom-0 left-0 w-full z-10 md:hidden">
-        <Image
-          src="/assets/contact2.png"
-          alt="Mobile Contact Background"
-          width={1920}
-          height={400}
-          className="object-cover w-full"
-          priority
-        />
-      </div>
-
-      {/* Main Contact Content */}
-      <div className="flex flex-col justify-center items-center flex-grow px-4 md:px-20 py-20 z-40 text-center mt-32 md:mt-40 relative">
+      {/* Main Contact Content - Positioned in the limelight */}
+      <div className="flex flex-col justify-center items-center flex-grow px-4 md:px-20 py-20 z-40 text-center mt-32 md:mt-40">
         
-        <div className="relative z-20 max-w-4xl">
+        {/* Content within the limelight cone */}
+        <div className="relative z-15 max-w-4xl">
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4">
             <span className="text-orange-500">GET IN</span>{" "}
             <span className="text-white">TOUCH</span>
