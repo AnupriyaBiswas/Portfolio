@@ -120,7 +120,7 @@ const Contact = () => {
       {/* Alternate Image for Small Screens (Bottom full width) */}
       <div className="absolute bottom-0 left-0 w-full z-10 md:hidden">
         <Image
-          src="/assets/contact2.png"
+          src="/assets/contact-mb.png"
           alt="Mobile Contact Background"
           width={1920}
           height={400}
